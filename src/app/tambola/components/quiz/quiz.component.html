@@ -1,0 +1,46 @@
+<div class="quiz-component full" *ngIf="loading">
+  <app-loader></app-loader>
+</div>
+<div class="quiz-component full {{currentEventSponsor?.type}}" *ngIf="!loading">
+  <div class="text" *ngIf="currentEventSponsor?.type === 'golden'">
+    Answer the following question correctly to get the FREE TICKET
+  </div>
+  <div class="text" *ngIf="currentEventSponsor?.type === 'private'">
+    Answer the question correctly to get your TICKET
+  </div>
+  <div class="quiz-content">
+    <div class="sponsor" *ngIf="currentEventSponsor?.type === 'golden'">
+      <img [src]="quizSponsorImg | safe" />
+    </div>
+    <div class="sponsor" *ngIf="currentEventSponsor?.type === 'private'">
+      <img [src]="this.quiz.image | safe" />
+    </div>
+    <div class="quiz-wrap">
+      <div class="question">{{ quiz.question }}</div>
+      <div class="options">
+        <div class="option" *ngFor="let option of quiz.options" [class.disabled]="quiz.locked" [class.selected]="option.selected" [class.correct]="option.selected && quiz.result === 'correct'"
+          [class.incorrect]="option.selected && quiz.result === 'incorrect'" (click)="handleQuizAnswer(option)">
+          <div class="result-icon" *ngIf="quiz.result === 'correct' && option.selected">
+            <img src="assets/images/right_answer.svg" />
+          </div>
+          <div class="result-icon" *ngIf="quiz.result === 'incorrect' && option.selected">
+            <img src="assets/images/wrong_answer.svg" />
+          </div>
+          <span>{{ option.desc }}</span>
+        </div>
+      </div>
+    </div>
+    <div class="result correct" *ngIf="quiz.result === 'correct' && currentEventSponsor?.type === 'golden'">
+      Correct Answer, you got a FREE TICKET
+    </div>
+    <div class="result correct" *ngIf="quiz.result === 'correct' && currentEventSponsor?.type === 'PRIVATE'">
+      Correct Answer, you got a TICKET
+    </div>
+    <div class="result incorrect" *ngIf="quiz.result === 'incorrect'">
+      Wrong Answer. Please try Again.
+    </div>
+  </div>
+  <div class="ad-container">
+    <app-ad></app-ad>
+  </div>
+</div>

@@ -1,0 +1,308 @@
+@import 'mixins';
+
+.room-status-component {
+  background: url(~src/assets/images/profile-capture-bg.png) no-repeat top center;
+  background-size: cover;
+  background-color: #B2EDFF;
+  display: flex;
+  flex-direction: column;
+
+  .header {
+    text-align: center;
+    padding: 1rem;
+
+    .room {
+      font-family: MontserratSemiBold;
+      font-size: 1.2rem;
+      color: #0041AA;
+    }
+
+    .text {
+      font-family: MontserratSemiBold;
+      font-size: 0.75rem;
+      color: #434343;
+    }
+  }
+
+  .status {
+    background-color: #B2EDFF;
+    width: 100%;
+    padding: 0 2rem;
+    text-align: center;
+
+    .info {
+      display: flex;
+      justify-content: space-between;
+      color: #0041AA;
+
+      .players-count {
+        font-weight: bold;
+      }
+
+      .prizes {
+        text-decoration: underline;
+      }
+    }
+
+    ::-webkit-scrollbar {
+      -webkit-appearance: none;
+    }
+
+    ::-webkit-scrollbar:vertical {
+      width: 5px;
+    }
+
+    ::-webkit-scrollbar:horizontal {
+      height: 11px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #B5B5B5;
+      border-radius: 20px;
+    }
+
+    .player-list {
+      background-color: #B2EDFF;
+      overflow: hidden;
+      overflow-y: scroll;
+      max-height: 45vh;
+      width: 100%;
+      padding-right: 0.5rem;
+
+      .player-info {
+        margin-top: 1rem;
+        padding: 0.50rem 0.50rem;
+        border-radius: 0.5rem;
+        background-color: #fff;
+        display: flex;
+        justify-content: space-between;
+
+        .left {
+          display: flex;
+          align-items: center;
+
+          .img-wrap {
+            margin-right: 1rem;
+          }
+
+          .name {
+            font-family: MontserratSemiBold;
+            font-size: 1rem;
+            color: #434343;
+            font-weight: bold;
+          }
+
+          .ticket-detail {
+            font-family: MontserratSemiBold;
+            font-size: 0.75rem;
+            color: #434343;
+          }
+        }
+
+        &:first-child {
+          background: #D8FFE4 !important;
+        }
+      }
+    }
+
+  }
+
+  .buy-ticket-container {
+    width: 100%;
+    padding: 0 2rem;
+
+    .buy-ticket {
+      display: flex;
+      background-image: linear-gradient(to bottom, rgba(67, 219, 252, 1), rgba(4, 114, 250, 1));
+      border-radius: 0.5rem;
+      margin-top: 1rem;
+      border: 0.5px solid #0076EA;
+      justify-content: space-between;
+      padding: 0.5rem 0.5rem;
+
+      .button {
+        color: #fff;
+        font-family: MontserratSemiBold;
+        font-size: 1.25rem;
+      }
+
+      .ticket-price {
+        display: flex;
+
+        img {
+          max-width: 2rem;
+          max-height: 2rem;
+        }
+
+        .amount {
+          font-family: MontserratSemiBold;
+          font-size: 1.25rem;
+          color: #fff;
+        }
+      }
+    }
+  }
+
+  .video-ad {
+    background-color: #70ddfc;
+    bottom: 24px;
+    width: 100%;
+    position: absolute;
+  }
+
+  .chat {
+    .notification {
+      .sticker-message {
+        padding: 0.25rem;
+        border-radius: 5px;
+        font-size: 0.8rem;
+        background: #ffff;
+        display: flex;
+        flex-direction: row;
+        margin: 0.75rem;
+        position: absolute;
+        max-width: 80%;
+        width: auto;
+        word-wrap: break-word;
+        justify-content: space-evenly;
+        align-items: center;
+        bottom: 24px;
+        border: 1px solid #7F898F;
+
+        .name {
+          font-size: 10px;
+          color: #959595;
+          font-family: MontserratSemiBold;
+          padding-right: 10px;
+        }
+
+        .text {
+          font-size: 12px;
+          font-family: MontserratBold;
+          color: #000000;
+          width: auto;
+          max-width: 80%;
+        }
+      }
+    }
+
+    .chat-window {
+      background-color: #000000;
+      bottom: 0;
+      width: 100%;
+      position: fixed;
+      padding: 0.65rem;
+      color: #FFFFFF;
+      font-size: 11px;
+      text-align: left;
+      font-family: MontserratLight
+    }
+  }
+}
+
+.popup {
+  .bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 10;
+    background: rgba(0, 0, 0, 0.5);
+    animation: fadein 0.3s ease-in;
+  }
+
+  .popup-content {
+    position: absolute;
+    left: 0;
+    bottom: -100%;
+    right: 0;
+    z-index: 10;
+    max-height: 60%;
+    text-align: center;
+    background: #fff;
+    transition: bottom 0.3s ease-in;
+    overflow-y: auto;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+
+    &.show {
+      bottom: 0;
+    }
+
+    .title {
+      background-color: #0041AA;
+      background-size: cover;
+      color: #fff;
+      font-family: MontserratSemiBold;
+      font-size: 1.25rem;
+      padding: 1rem;
+      border-top-left-radius: 10px;
+      border-top-right-radius: 10px;
+    }
+
+    .body {
+      font-family: MontserratRegular;
+      font-size: 1.25rem;
+      display: flex;
+      justify-content: space-evenly;
+      align-items: center;
+      flex-direction: column;
+      padding: 1rem;
+
+      .container {
+        margin: 2rem 0;
+        width: 100%;
+        padding: 0 2rem;
+
+        .distribution-type {
+          font-family: MontserratMedium;
+          font-size: 1.25rem;
+          color: #505050;
+
+          .distribution {
+            justify-content: space-between;
+            display: flex;
+          }
+        }
+      }
+
+      .text {
+        font-family: MontserratLight;
+        font-size: 1.25rem;
+        color: #000;
+      }
+
+      .bold-text {
+        font-family: MontserratSemiBold;
+        font-size: 1.25rem;
+        color: #000;
+      }
+
+      .okay-btn {
+        width: 100%;
+        height: 32px;
+        @include flex-container(center);
+
+        button {
+          height: 40px;
+          width: 100%;
+          background: #EDEBF0;
+          padding: 0.4rem;
+          font-size: 1.3rem;
+          font-family: MontserratExtraBold;
+          text-align: center;
+          text-transform: uppercase;
+          border: none;
+          color: #0041AA;
+          border-radius: 3rem;
+          box-shadow: none;
+
+          &:focus {
+            outline: none !important;
+          }
+        }
+      }
+    }
+  }
+}

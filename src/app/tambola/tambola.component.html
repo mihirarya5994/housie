@@ -1,0 +1,21 @@
+<div class="tambola-component full">
+  <div class="header-wrap">
+    <app-header></app-header>
+  </div>
+  <div class="footer-wrap" *ngIf="router.url === '/tambola/events'">
+    <app-footer></app-footer>
+  </div>
+  <div class="footer-wrap" *ngIf="showFooter && !keyboardPresent">
+    <app-footer></app-footer>
+  </div>
+  <div class="content-wrap full" [class.with-footer]="showFooter">
+    <router-outlet></router-outlet>
+  </div>
+</div>
+<app-full-page-ads></app-full-page-ads>
+<app-brand-splash></app-brand-splash>
+<app-how-to-play></app-how-to-play>
+<app-show-watch-video-to-earn></app-show-watch-video-to-earn>
+<app-chat *ngIf="chatOverlay"></app-chat>
+<app-native-back *ngIf="showExitPopup" (handleCta)="handleCtaAction($event)"></app-native-back>
+<!-- <app-fastest-finger *ngIf="showFastestFinger" (proceed)="showFastestFinger = false"></app-fastest-finger> -->

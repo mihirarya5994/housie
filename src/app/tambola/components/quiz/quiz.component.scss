@@ -1,0 +1,124 @@
+@import "mixins";
+
+.quiz-component {
+  &.golden {
+    background: url(~src/assets/images/free/bg.svg) no-repeat top center;
+    background-size: cover;
+    background-color: #b2edff;
+  }
+
+  &.private {
+    background: url(~src/assets/images/free/bg.svg) no-repeat top center;
+    background-size: cover;
+    background-color: #b2edff;
+  }
+
+  text-align: center;
+  animation: fadein 0.2s ease-in;
+  padding: 1.5rem;
+  overflow-y: auto;
+
+  .text {
+    color: #434343;
+    font-family: MontserratSemiBold;
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+    padding: 0 2rem;
+  }
+
+  .quiz-content {
+    background: #fff;
+    border-radius: 10px;
+    margin-top: 27%;
+    position: relative;
+    -webkit-box-shadow: 0 0 5px 0.5px #00286999;
+    -moz-box-shadow: 0 0 5px 0.5px #00286999;
+    box-shadow: 0 0 5px 0.5px #00286999;
+
+    .sponsor {
+      position: absolute;
+      top: -5rem;
+      width: 90%;
+      left: 50%;
+      transform: translate(-50%, 0);
+      height: 10rem;
+
+      img {
+        height: 100%;
+        width: 100%;
+      }
+    }
+
+    .quiz-wrap {
+      font-family: MontserratSemiBold;
+      color: #000000;
+      padding: 5rem 2rem 2rem;
+
+      .question {
+        margin: 1rem;
+        text-transform: uppercase;
+        animation: slide-down 0.3s ease;
+      }
+
+      .options {
+        text-transform: uppercase;
+
+        .option {
+          @include flex-container(center);
+          background: #f0f0f0;
+          border-radius: 5px;
+          height: 2.8rem;
+          width: 100%;
+          animation: slide-up 0.3s ease;
+          position: relative;
+          transition: all 0.3s ease;
+          margin-bottom: 0.5rem;
+
+          &.disabled {
+            pointer-events: none;
+          }
+
+          .result-icon {
+            position: absolute;
+            left: 0;
+            height: 100%;
+            animation: slide-right-in 0.3s ease;
+          }
+
+          &.selected {
+            background-color: #faca00;
+          }
+
+          &.correct {
+            background: #00ac0d !important;
+            color: #fff;
+          }
+
+          &.incorrect {
+            background: #d10000 !important;
+            color: #fff;
+          }
+        }
+      }
+    }
+
+    .result {
+      @include flex-container(center);
+      height: 2.8rem;
+      color: #fff;
+      font-family: MontserratMedium;
+      font-size: 0.85rem;
+      border-bottom-left-radius: 10px;
+      border-bottom-right-radius: 10px;
+      animation: slide-up 0.3s ease;
+
+      &.correct {
+        background: #006f08;
+      }
+
+      &.incorrect {
+        background: #7b0206;
+      }
+    }
+  }
+}

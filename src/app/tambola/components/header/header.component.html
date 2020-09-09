@@ -1,0 +1,18 @@
+<div class="header-component">
+  <div class="left" (click)="back()">
+    <div class="back">
+      <img src="assets/images/arrow_left.svg" />
+    </div>
+  </div>
+  <div class="logo-wrap">
+    <img src="assets/images/Jio.svg" />
+  </div>
+  <div class="right" *ngIf="!showNoCoins" (click)="showWatchAndEarnOverlay(true)">
+    <img class="coins-img" src="assets/images/coins.png">
+    <div class="coins">
+      <div class="title">COINS</div>
+      <div class="amount">{{ playerCoins | number}}
+      </div>
+    </div>
+  </div>
+</div>

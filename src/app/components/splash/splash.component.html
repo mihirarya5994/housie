@@ -1,0 +1,30 @@
+<div class="splash-component full">
+  <app-loader></app-loader>
+</div>
+<div class="splash-component full" [class.hidden]="loading">
+  <div class="middle">
+    <div class="presenters" *ngIf="presenters.length">
+      <div class="title">
+        Presented By
+      </div>
+      <div class="presenters-logo">
+        <div class="logo-wrap" *ngFor="let presenter of presenters">
+          <img [src]="presenter | safe" />
+        </div>
+      </div>
+    </div>
+    <div class="sponsors" *ngIf="sponsors.length">
+      <div class="title">
+        Associate Sponsors
+      </div>
+      <div class="sponsors-logo">
+        <div class="logo-wrap" *ngFor="let sponsor of sponsors">
+          <img [src]="sponsor | safe" />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="outer">
+    <div #inner class="inner"></div>
+  </div>
+</div>

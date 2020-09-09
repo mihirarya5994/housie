@@ -1,0 +1,5 @@
+<div class="recent-draws">
+  <div class="ball" *ngFor="let draw of ballDraws" [class.opaque]="draw.opaque">
+    {{ draw.number }}
+  </div>
+</div>

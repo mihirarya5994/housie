@@ -1,0 +1,80 @@
+<div class="earn-burn-component full" *ngIf="loading">
+  <app-loader color="blue"></app-loader>
+</div>
+<!-- <div class="earn-burn-component full">
+  <div class="no-data">
+    <div class="tambola-logo-wrap">
+      <img src="assets/images/redeem_logo.svg" />
+    </div>
+    <div class="text">Coming Soon</div>
+  </div>
+</div> -->
+
+<div class="earn-burn-component full" *ngIf="!loading">
+  <div class="no-data" *ngIf="noData || !couponList">
+    <div class="text">You are one step away from winning big</div>
+    <div class="tambola-logo-wrap">
+      <img src="assets/images/redeem_logo.svg" />
+    </div>
+  </div>
+  <ng-container *ngIf="couponList">
+    <div class="win-card" *ngFor="let coupon of couponList">
+      <div class="win-title">{{ coupon[1].coupon.couponDesc }}</div>
+      <div class="win-details">
+        <div class="prize">
+          <div class="name">{{ coupon[0] }}</div>
+          <div class="img">
+            <img src="{{coupon[1].coupon.uploadImageUrl}}" />
+          </div>
+        </div>
+        <div class=" prize-details">
+          <div class="coupon-details">
+          </div>
+          <div class="claim-btn" (click)="buyCouponConfirmation(coupon)" *ngIf="!coupon.redeemed && coupon[1].redeem_status !== 'redeemed'">
+            <div class="button">GET THIS</div>
+            <div class="coupon-price">
+              <img src="assets/images/coins.png">
+              <div class="amount">{{coupon[1].coins}}</div>
+            </div>
+          </div>
+          <div class="redeemed-coupon" *ngIf="coupon.redeemed || coupon[1].redeem_status === 'redeemed'">
+            <div class="message">REDEEMED</div>
+            <div class="my-winnings">Check my Winnings</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</div>
+<div class="popup">
+  <div class="bg" (click)="claimCoupon()" *ngIf="couponPopUp"></div>
+  <div class="popup-content" [class.show]="couponPopUp">
+    <div class="title">{{couponDetail[0]}}</div>
+    <div class="body">
+      <div class="container">
+        <div class="text">You want to purchase the {{couponDetail[0]}} Offer?</div>
+        <div class="bold-text">This will deduct {{couponCoins}} coins from your account.</div>
+      </div>
+      <div class="okay-btn">
+        <button type="button" (click)="buyCoupon(couponDetail)">YES</button>
+        <button type="button" (click)="claimCoupon()">NO</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="popup">
+  <div class="bg" (click)="closeSucessPopUp()" *ngIf="successPopUp"></div>
+  <div class="popup-content" [class.show]="successPopUp">
+    <div class="title">Successful</div>
+    <div class="body">
+      <div class="container">
+        <div class="text">You have successfully purchased the {{couponDetail[0]}} Offer.</div>
+        <div class="bold-text">Check my winnings section for all the offers you have.</div>
+      </div>
+      <div class="okay-btn">
+        <button type="button" (click)="closeSucessPopUp()">AWESOME</button>
+      </div>
+    </div>
+  </div>
+</div>

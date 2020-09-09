@@ -1,0 +1,111 @@
+<div class="profile-component full">
+  <!-- <div class="profile-capture-bg full"></div> -->
+  <!-- <div class="jio-logo-wrap">
+    <img src="assets/images/Jio.svg" />
+  </div> -->
+  <div class="profile-content">
+    <div class="container">
+      <div class="header">
+        <div class="welcome">Welcome</div>
+        <div class="text">Help us with your details to start the game</div>
+      </div>
+
+      <div class="content">
+        <div class="form-field" (ngSubmit)="submitProfile()">
+          <input type="text" class="form-control" [(ngModel)]="profile.nickName" placeholder="Name" name="nickName" />
+          <span class="edit">
+            <img src="assets/images/edit.svg" />
+          </span>
+          <div class="err" *ngIf="errors.nickName">
+            {{ errors.nickName }}
+          </div>
+        </div>
+        <div class="form-field">
+          <input name="ageGroup" class="form-control" placeholder="Age" [(ngModel)]="profile.ageGroup" (click)="handleSelectClick($event, 'ageGroup')" readonly />
+
+          <span class="edit">
+            <img src="assets/images/arrow_down.svg" />
+          </span>
+          <div class="err" *ngIf="errors.ageGroup">
+            {{ errors.ageGroup }}
+          </div>
+        </div>
+        <div class="form-field">
+          <input name="gender" class="form-control" placeholder="Gender" [(ngModel)]="profile.gender" (click)="handleSelectClick($event, 'gender')" readonly />
+          <span class="edit">
+            <img src="assets/images/arrow_down.svg" />
+          </span>
+          <div class="err" *ngIf="errors.gender">
+            {{ errors.gender }}
+          </div>
+        </div>
+        <div class="form-field">
+          <input name="state" class="form-control" placeholder="State" [(ngModel)]="profile.state" (click)="handleSelectClick($event, 'state')" readonly />
+          <span class="edit">
+            <img src="assets/images/arrow_down.svg" />
+          </span>
+          <div class="err" *ngIf="errors.state">
+            {{ errors.state }}
+          </div>
+        </div>
+        <div class="form-field">
+          <input type="text" class="form-control" [(ngModel)]="profile.emailId" placeholder="Email ID" name="emailId" />
+          <span class="edit">
+            <img src="assets/images/edit.svg" />
+          </span>
+          <div class="err" *ngIf="errors.emailId">
+            {{ errors.emailId }}
+          </div>
+        </div>
+        <div class="bottom-text">
+          You can change these details later from Settings.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="action" *ngIf="!isKeyBoardPresent">
+    <!-- <div class="skip" (click)="skip()">Skip</div> -->
+    <button type="button" [disabled]="
+        !profile.nickName ||
+        !profile.ageGroup ||
+        !profile.gender ||
+        !profile.state ||
+        submitting
+      " (click)="submitProfile()">
+      {{ submitting ? 'Please wait...' : 'Submit' }}
+    </button>
+  </div>
+</div>
+
+<div class="dropdown-popup">
+  <div class="bg" (click)="toggleDropdownPopup()" *ngIf="showDropdownPopup"></div>
+  <div class="popup-content" [class.show]="showDropdownPopup">
+    <div class="title">{{ dropdownPopupConfig.title }}</div>
+    <div class="values">
+      <div class="value" *ngFor="let value of dropdownPopupConfig.values" [class.active]="profile[dropdownPopupConfig.key] === value.value" (click)="handleSelectValue(value.value)">
+        <div class="selection">
+          <img src="assets/images/selected.svg" *ngIf="profile[dropdownPopupConfig.key] === value.value" />
+        </div>
+        {{ value.title }}
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="dropdown-popup">
+  <div class="bg" *ngIf="showThankYouContent"></div>
+  <div class="popup-content" [class.show]="showThankYouContent" *ngIf="showThankYouContent">
+    <div class="title">Thank You</div>
+    <div class="welcome">
+      <div>WELCOME</div>
+      <div class="name">
+        {{ profile.nickName }}
+      </div>
+      <div class="game-start">
+        <div class="wait">Wait is over,</div>
+        <div class="start">Your game is initialising…</div>
+      </div>
+    </div>
+  </div>
+</div>

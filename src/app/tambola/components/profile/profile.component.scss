@@ -1,0 +1,270 @@
+@import "mixins";
+
+.profile-component {
+  background: url(~src/assets/images/splash/bg.svg) no-repeat top center;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  ;
+
+
+  .jio-logo-wrap {
+    margin: 1rem auto;
+  }
+
+  .profile-content {
+    display: flex;
+    top: 10%;
+    overflow-y: auto;
+    width: 100%;
+    padding: 0 1rem;
+    text-align: center;
+    margin: auto;
+    height: 70%;
+
+    .container {
+      margin: auto;
+
+      .header {
+        color: #fff;
+        margin: auto;
+        margin-bottom: 1.5rem;
+
+        .welcome {
+          font-family: MontserratSemiBold;
+          font-size: 1.8rem;
+          color: #0041aa;
+        }
+
+        .text {
+          font-family: MontserratMedium;
+          font-size: 0.9rem;
+          color: #0041aa;
+        }
+      }
+
+      .content {
+        width: 100%;
+        margin: auto;
+        background: #71deff;
+        border-radius: 4px;
+        padding: 1rem;
+
+        .form-field {
+          position: relative;
+          margin-bottom: 1rem;
+
+          input {
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid #434343;
+            border-radius: 0;
+            font-family: MontserratMedium;
+            outline: none;
+            color: #434343;
+            height: 36px;
+
+            &:focus {
+              outline: none !important;
+              border: none !important;
+            }
+          }
+
+          select {
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid #fff;
+            border-radius: 0;
+            font-family: MontserratMedium;
+            height: 36px;
+            outline: none;
+            color: #fff;
+
+            &:focus {
+              outline: none;
+            }
+          }
+
+          .edit {
+            position: absolute;
+            top: 5px;
+            right: 10px;
+          }
+        }
+
+        ::placeholder {
+          /* Chrome, Firefox, Opera, Safari 10.1+ */
+          color: #434343;
+          opacity: 0.4;
+          /* Firefox */
+        }
+
+        :-ms-input-placeholder {
+          /* Internet Explorer 10-11 */
+          color: #434343;
+        }
+
+        ::-ms-input-placeholder {
+          /* Microsoft Edge */
+          color: #434343;
+        }
+
+        .bottom-text {
+          color: #434343;
+          font-family: MontserratMedium;
+          font-size: 0.8rem;
+          height: 36px;
+          line-height: 36px;
+        }
+
+        .err {
+          color: red;
+          text-align: left;
+          margin: 2px 0;
+        }
+      }
+    }
+
+  }
+
+  .action {
+    width: 100%;
+    height: 20%;
+    margin: auto;
+    @include flex-container(center);
+    flex-direction: column;
+
+    .skip {
+      color: #434343;
+      text-transform: uppercase;
+      font-family: MontserratSemiBold;
+      text-decoration: underline;
+      margin-bottom: 1.5rem;
+    }
+
+    button {
+      color: #010d91;
+      height: 50px;
+      width: 90%;
+      background: #ffffff;
+      padding: 4px;
+      font-size: 1.3rem;
+      font-family: MontserratExtraBold;
+      font-weight: 600;
+      text-align: center;
+      text-transform: uppercase;
+      border-radius: 35px;
+      box-shadow: none;
+      outline: none;
+
+      &:disabled {
+        opacity: 0.6 !important;
+        pointer-events: none;
+      }
+    }
+  }
+}
+
+.dropdown-popup {
+  .bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 10;
+    background: rgba(0, 0, 0, 0.5);
+    animation: fadein 0.3s ease-in;
+  }
+
+  .popup-content {
+    position: absolute;
+    left: 0;
+    bottom: -100%;
+    right: 0;
+    z-index: 10;
+    max-height: 60%;
+    text-align: center;
+    background: #fff;
+    transition: bottom 0.3s ease-in;
+    overflow-y: auto;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+
+    &.show {
+      bottom: 0;
+    }
+
+    .title {
+      background: #0041aa;
+      color: #fff;
+      font-family: MontserratSemiBold;
+      font-size: 1.25rem;
+      padding: 1rem;
+      border-top-left-radius: 10px;
+      border-top-right-radius: 10px;
+    }
+
+    .values {
+      color: rgba(0, 0, 0, 1);
+      font-family: MontserratRegular;
+      font-size: 1.35rem;
+      overflow-y: auto;
+
+      .value {
+        @include flex-container(center);
+        padding: 1rem;
+        border-bottom: 1px solid #9d9d9d;
+        margin: 0 1rem;
+
+        &:last-child {
+          border-bottom: none;
+        }
+
+        &.active {
+          color: #0041aa !important;
+          font-family: MontserratBold;
+        }
+
+        .selection {
+          @include flex-container(center);
+          margin-right: 1.5rem;
+          margin-left: -1.5rem;
+          width: 1rem;
+        }
+      }
+    }
+
+    .welcome {
+      font-family: MontserratRegular;
+      font-size: 1.25rem;
+      display: flex;
+      justify-content: space-evenly;
+      align-items: center;
+      flex-direction: column;
+      padding: 1rem;
+
+      .name {
+        font-family: MontserratBold;
+        color: #5201b2;
+        font-size: 1.25rem;
+      }
+
+      .game-start {
+        padding: 4rem;
+        margin: 2rem 0;
+
+        .wait {
+          font-family: MontserratRegular;
+          font-size: 1.25rem;
+        }
+
+        .start {
+          font-family: MontserratSemiBold;
+          font-size: 1.25rem;
+          color: #000;
+        }
+      }
+    }
+  }
+}

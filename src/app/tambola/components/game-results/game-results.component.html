@@ -1,0 +1,35 @@
+<div class="game-results-component full" *ngIf="loading">
+  <app-loader></app-loader>
+</div>
+<div class="game-results-component full" *ngIf="!loading">
+  <div class="game-winner">
+    <div class="title">Today Full House <br> Claimed</div>
+    <div class="winners-count">{{ results.grand }}</div>
+    <div class="text">JioEngage Team will announce the winners shortly</div>
+  </div>
+  <div class="my-wins" *ngIf="!results.myprizes?.length">
+    <div class="wins">
+      <div class="text-1">Better Luck Next Time</div>
+      <div class="text-2">Play Tambola Everyday at 7PM, 7:30PM and 8:00PM</div>
+    </div>
+    <div class="actions">
+      <button type="button" (click)="continue()">Continue</button>
+    </div>
+  </div>
+  <div class="my-wins" *ngIf="results.myprizes?.length">
+    <div class="title">You won Today</div>
+    <div class="wins">
+      <div class="wins-wrap" [class.justify-content-start]="results.myprizes?.length > 3">
+        <div class="win" *ngFor="let prize of results.myprizes">
+          <div class="prize-icon">
+            <img src="{{ prize.image }}" />
+          </div>
+          <div class="win-category">{{ prize.name }}</div>
+        </div>
+      </div>
+    </div>
+    <div class="actions">
+      <button type="button" (click)="continue()">Continue</button>
+    </div>
+  </div>
+</div>

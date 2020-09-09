@@ -1,0 +1,159 @@
+<div class="room-status-component full">
+  <div class="header">
+    <div class="room">ROOM: {{roomDetail?.roomName}}</div>
+    <div class="text enter">You have entered the ROOM!</div>
+    <div class="text buy">Buy the ticket to confirm the SPOT!</div>
+    <div class="text ask-friend">And ask your friend to start the game!</div>
+  </div>
+  <div class="status">
+    <div class="info">
+      <div class="players-count">Players Joined: {{this.playersInfo.length}}</div>
+      <div class="prizes" (click)="togglePrizePopup()">SEE PRIZES</div>
+    </div>
+    <div class="player-list">
+      <div class="player-info" *ngFor="let player of playersInfo">
+        <div class="left">
+          <div class="img-wrap">
+            <img src="assets/images/avatar.svg">
+          </div>
+          <div class="details">
+            <div class="name d-flex">{{player.name}}</div>
+            <div class="ticket-detail" *ngIf="!player.hasTicket">Yet to buy ticket</div>
+          </div>
+        </div>
+        <div class="right">
+          <div class="img-wrap">
+            <img src="assets/images/Ticket.svg" *ngIf="player.hasTicket">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="buy-ticket-container">
+    <div class="buy-ticket" (click)="buyTicket()">
+      <div class="button">BUY TICKET</div>
+      <div class="ticket-price">
+        <img src="assets/images/coins.png">
+        <div class="amount">{{roomDetail?.ticketPrice}}</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="video-ad" *ngIf="!isKeyBoardPresent">
+    <app-video-ad [roomId]="roomDetail?.roomId"></app-video-ad>
+  </div>
+
+  <div class="chat">
+    <div class="notification" *ngIf="notification && chatNotification?.message.name !==  serverProfile?.nickName">
+      <div class="sticker-message">
+        <div class="name">
+          {{ chatNotification?.message.name || Player }}
+        </div>
+        <div class="text">
+          {{chatNotification?.message.text}}
+        </div>
+      </div>
+    </div>
+    <div class="chat-window" (click)="openChatWindowOverlay(true)">Type a message...</div>
+  </div>
+</div>
+<div class="popup">
+  <div class="bg" (click)="togglePrizePopup()" *ngIf="showPrizePopup"></div>
+  <div class="popup-content" [class.show]="showPrizePopup">
+    <div class="title">Pool Coins Distribution</div>
+    <div class="body">
+      <div class="container">
+        <div class="distribution-type">
+          <div class="distribution">
+            <div class="prize-name">Early 5</div>
+            <div class="name">{{prizeDistribution?.first5}}%</div>
+          </div>
+          <div class="distribution">
+            <div class="prize-name">Top Line</div>
+            <div class="name">{{prizeDistribution?.row1}}%</div>
+          </div>
+          <div class="distribution">
+            <div class="prize-name">Middle Line</div>
+            <div class="name">{{prizeDistribution?.row2}}%</div>
+          </div>
+          <div class="distribution">
+            <div class="prize-name">Bottom Line</div>
+            <div class="name">{{prizeDistribution?.row3}}%</div>
+          </div>
+          <div class="distribution">
+            <div class="prize-name">Corners</div>
+            <div class="name">{{prizeDistribution?.corners}}%</div>
+          </div>
+          <div class="distribution">
+            <div class="prize-name">Full House</div>
+            <div class="name">{{prizeDistribution?.fullhouse}}%</div>
+          </div>
+        </div>
+      </div>
+      <div class="okay-btn">
+        <button type="button" (click)="togglePrizePopup()">OKAY</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="popup">
+  <div class="bg" (click)="ticketStatusPopUp()" *ngIf="showPopUp"></div>
+  <div class="popup-content" [class.show]="showPopUp">
+    <div class="title">Insufficient Coins</div>
+    <div class="body">
+      <div class="container">
+        <div class="text">
+          Your coins are insufficient to join this game room!
+        </div>
+        <div class="bold-text">Watch video ad to earn the coins</div>
+      </div>
+      <div class="okay-btn">
+        <button type="button" (click)="ticketStatusPopUp()">OKAY</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="popup">
+  <div class="bg" (click)="kickedOutPopUp()" *ngIf="kickedOut"></div>
+  <div class="popup-content" [class.show]="kickedOut">
+    <div class="title">You are kicked</div>
+    <div class="body">
+      <div class="container">
+        <div class="bold-text">Game leader kicked you out!</div>
+      </div>
+      <div class="okay-btn">
+        <button type="button" (click)="redirectToHome()">OKAY</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- <div class="popup">
+    <div class="bg" (click)="ticketStatusPopUp()" *ngIf="roomStarted"></div>
+    <div class="popup-content" [class.show]="roomStarted">
+        <div class="title">You are late.</div>
+        <div class="body">
+            <div class="container">
+                <div class="bold-text">The room is full.</div>
+            </div>
+            <div class="okay-btn">
+                <button type="button" (click)="redirectToHome()">OKAY</button>
+            </div>
+        </div>
+    </div>
+</div> -->
+<div class="popup">
+  <div class="bg" (click)="roomCancelled()" *ngIf="roomDeleted"></div>
+  <div class="popup-content" [class.show]="roomDeleted">
+    <div class="title">Ooopss</div>
+    <div class="body">
+      <div class="container">
+        <div class="text ">The room does not exist</div>
+        <div class="bold-text">The game leader quit!!</div>
+      </div>
+      <div class="okay-btn">
+        <button type="button" (click)="redirectToHome()">OKAY</button>
+      </div>
+    </div>
+  </div>
+</div>

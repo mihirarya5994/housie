@@ -1,0 +1,24 @@
+<div class="chat-component full">
+  <div class="close-wrap" (click)="closeChatOverlay()">
+    <img src="assets/images/close.svg" />
+  </div>
+  <div class="chat-window" (scroll)="handleScroll($event)" #chatWindow>
+    <div class="content" [class.self]="message.message.name === profileNickName" [class.sameName]="sameName && message.message.name !== profileNickName"
+      [ngStyle]="{'margin-top': !checkForNameRepeat(message, i) ? '1rem' : '0rem'}" *ngFor="let message of messages; let i = index ">
+      <div class="sticker-message">
+        <div class="name" *ngIf="!checkForNameRepeat(message,i)">
+          {{ message?.message.name}}
+        </div>
+        <div class="text">
+          {{message?.message.text}}
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="input-box">
+    <input type="text" placeholder="Type a message..." maxlength="300" #box (keyup.enter)="sendMessage($event, box.value); box.value = ''" [(ngModel)]="messageToSend" />
+    <div class="sendBtn" (click)="sendMessage(null, messageToSend);box.value = ''">
+      <img src="assets/images/chat_send.svg" />
+    </div>
+  </div>
+</div>

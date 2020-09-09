@@ -1,0 +1,49 @@
+<div class="how-to-play-popup" *ngIf="showHowToPlayPopup">
+  <div class="content full">
+    <div class="close-wrap" (click)="close()">
+      <img src="assets/images/close.svg" />
+    </div>
+    <div class="video-wrap full" *ngIf="playVideo">
+      <video [src]="videoLink" autoplay playsinline controls controlsList="nodownload" (ended)="onVideoEnd()"></video>
+    </div>
+    <div class="main-container" *ngIf="!playVideo">
+      <div class="title-text">HOW TO PLAY</div>
+
+      <div class="card-container">
+        <div class="card-wrap mini invite" *ngFor="let button of buttons" (click)="handleVideoPlay(button)">
+          <div class="left">
+            <div class="text-bold">
+              {{ button.text1}}
+            </div>
+            <div class="text-bold">
+              {{ button.text2}}
+            </div>
+          </div>
+          <div class="right">
+            <img src="assets/images/arrow.svg" />
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="earn-coins-popup" *ngIf="showEarnCoinPopUp">
+  <div class="content full">
+    <div class="close-wrap" (click)="showEarnCoinPopUp = false">
+      <img src="assets/images/close.svg" />
+    </div>
+    <div class="video-wrap full">
+      <div>
+        <app-ad adId="a8aa553c" type="billboard"></app-ad>
+      </div>
+    </div>
+    <div class="timer" *ngIf="showProgressBar">
+      <div class="timer-value">Watch ad to earn coins</div>
+      <div class="outer">
+        <div class="inner" [style.width.%]="(duration / initialDuration) * 100"></div>
+      </div>
+    </div>
+  </div>
+</div>

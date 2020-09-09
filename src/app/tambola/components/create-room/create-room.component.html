@@ -1,0 +1,79 @@
+<div class="create-room-component full" *ngIf="loading">
+  <app-loader></app-loader>
+</div>
+<div class="create-room-component full" *ngIf="!loading">
+  <div class="section room-name">
+    <div class="title">Enter Room Name</div>
+    <div class="error" *ngIf="validName">*Invalid name </div>
+    <div class="enter">
+      <input type="text" (input)="inputValidator($event)" [(ngModel)]="roomName" />
+    </div>
+  </div>
+  <div class="section ticket-prize">
+    <div class="title">Choose Ticket Price</div>
+    <div class="enter ticket-prize">
+      <div class="input">
+        <input type="text" [(ngModel)]="ticketPrize" (input)="inputValidator($event)" readonly />
+        <img src="assets/images/coins.png">
+      </div>
+      <div class="price-button">
+        <div class="price up" (click)="priceUp()"><img src="assets/images/price-up.png"> </div>
+        <div class="price down" (click)="priceDown()"><img src="assets/images/price-down.png"></div>
+      </div>
+    </div>
+    <div class="prize-distribution">
+      <div class="title">Pool Coins Distribution</div>
+      <div class="type">
+        <div class="distribution">
+          <div class="prize-name">Early 5</div>
+          <div class="name">{{prizeDistribution?.first5}}%</div>
+        </div>
+        <div class="distribution">
+          <div class="prize-name">Top Line</div>
+          <div class="name">{{prizeDistribution?.row1}}%</div>
+        </div>
+        <div class="distribution">
+          <div class="prize-name">Middle Line</div>
+          <div class="name">{{prizeDistribution?.row2}}%</div>
+        </div>
+        <div class="distribution">
+          <div class="prize-name">Bottom Line</div>
+          <div class="name">{{prizeDistribution?.row3}}%</div>
+        </div>
+        <div class="distribution">
+          <div class="prize-name">Corners</div>
+          <div class="name">{{prizeDistribution?.corners}}%</div>
+        </div>
+        <div class="distribution">
+          <div class="prize-name">Full House</div>
+          <div class="name">{{prizeDistribution?.fullhouse}}%</div>
+        </div>
+      </div>
+      <div class="create-game">
+        <div class="button" (click)="createPlayer()">CREATE GAME</div>
+      </div>
+    </div>
+  </div>
+  <div class="video-ad" *ngIf="!isKeyBoardPresent">
+    <app-video-ad></app-video-ad>
+  </div>
+</div>
+<div class="popup">
+  <div class="bg" (click)="ticketStatusPopUp()" *ngIf="showPopUp"></div>
+  <div class="popup-content" [class.show]="showPopUp">
+    <div class="title" *ngIf="price">Insufficient Coins</div>
+    <!-- <div class="title" *ngIf="validName">Error</div> -->
+    <div class="body">
+      <div class="container" *ngIf="price">
+        <div class="text"> Your coins are insufficient to join this game room! </div>
+        <div class="bold-text">Watch video ad to earn the coins</div>
+      </div>
+      <!-- <div class="container" *ngIf="validName">
+                <div class="bold-text">Please enter the correct room name</div>
+            </div> -->
+      <div class="okay-btn">
+        <button type="button" (click)="ticketStatusPopUp()">OKAY</button>
+      </div>
+    </div>
+  </div>
+</div>

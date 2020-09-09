@@ -1,0 +1,16 @@
+<div class="prizes-component full">
+  <div class="tabs">
+    <div class="tab" *ngFor="let tab of tabs" [class.active]="activeTab.id === tab.id" (click)="setTab(tab)">
+      <p>{{ tab.title }}</p>
+    </div>
+  </div>
+  <div class="tab-content" *ngIf="activeTab.id === 1">
+    <app-my-winnings></app-my-winnings>
+  </div>
+  <div class="tab-content" *ngIf="activeTab.id === 2">
+    <app-winners></app-winners>
+  </div>
+  <div class="tab-content" *ngIf="activeTab.id === 3">
+    <app-earn-burn></app-earn-burn>
+  </div>
+</div>

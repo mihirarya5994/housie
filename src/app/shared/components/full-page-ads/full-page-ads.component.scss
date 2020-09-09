@@ -1,0 +1,56 @@
+.full-page-ad-component {
+  .bg {
+    background: rgba(0, 0, 0, 0.75);
+    z-index: 22;
+  }
+  .content {
+    .ad-container {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 23;
+      width: 100%;
+    }
+    .skip {
+      padding: 0.5rem;
+      font-family: MontserratSemiBold;
+      color: #8300bf;
+      background: #fff;
+      border-radius: 4px;
+      position: absolute;
+      bottom: 3rem;
+      right: 1rem;
+      z-index: 24;
+      animation: slide-left 0.3s ease;
+    }
+    .timer {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      width: 100%;
+      padding: 1rem;
+      z-index: 24;
+      .timer-value {
+        color: #fff;
+        font-family: MontserratMedium;
+        font-size: 0.8rem;
+        text-align: center;
+        margin-bottom: 2px;
+      }
+      .outer {
+        width: 100%;
+        height: 0.3rem;
+        background: #3c3c3c;
+        border-radius: 4px;
+        .inner {
+          height: 100%;
+          background: #fff;
+          transition: width 0.3s ease;
+          border-radius: 4px;
+        }
+      }
+    }
+  }
+}

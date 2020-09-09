@@ -1,0 +1,130 @@
+@import 'mixins';
+
+.game-results-component {
+  background: url(~src/assets/images/background.svg) no-repeat top center;
+  background-size: cover;
+  background-color: #B2EDFF;
+  text-align: center;
+  animation: fadein 0.2s ease-in;
+  display: flex;
+  flex-direction: column;
+
+  .game-winner {
+    height: 60%;
+    padding: 0.5rem 2rem;
+    position: relative;
+    top: 5%;
+    color: #0041AA;
+
+    .title {
+      font-size: 1.3rem;
+      font-family: MontserratMedium;
+      text-transform: uppercase;
+    }
+
+    .winners-count {
+      font-family: MontserratMedium;
+      font-size: 10.5rem;
+      margin: -1rem 0;
+    }
+
+    .text {
+      font-family: MontserratMedium;
+      font-size: 1.25rem;
+    }
+
+    .winner-name {
+      font-size: 1.6rem;
+      font-family: MontserratSemiBold;
+      background: url(~src/assets/images/winner_bg.svg) no-repeat center center;
+      background-size: contain;
+      margin: 1rem;
+    }
+
+    .win-category {
+      font-size: 1.3rem;
+      font-family: MontserratMedium;
+    }
+  }
+
+  .my-wins {
+    height: 40%;
+    background: #fff;
+    color: rgba(0, 0, 0, 1);
+    padding: 1rem;
+    @include flex-container(space-between);
+    flex-direction: column;
+
+    .title {
+      font-family: MontserratSemiBold;
+      font-size: 1.3rem;
+    }
+
+    .wins {
+      @include flex-container(center);
+      flex-direction: column;
+      width: 100%;
+
+      .text-1 {
+        font-family: MontserratSemiBold;
+        font-size: 1.3rem;
+      }
+
+      .text-2 {
+        font-family: MontserratMedium;
+        font-size: 1.3rem;
+      }
+
+      .wins-wrap {
+        @include flex-container(center);
+        align-items: flex-start;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        width: 100%;
+        overflow-y: hidden;
+
+        .win {
+          width: 5rem;
+          margin: 0.5rem 1rem;
+          animation: fadein 0.3s ease-in, scale-up 0.4s ease;
+          flex: 0 0 auto;
+
+          .prize-icon {
+            width: 5rem;
+            height: 5rem;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.16);
+            border-radius: 5px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 0.5rem;
+          }
+
+          .win-category {
+            font-family: MontserratSemiBold;
+            color: rgba(103, 103, 103, 1);
+          }
+        }
+      }
+    }
+
+    .actions {
+      width: 100%;
+
+      button {
+        height: 3.5rem;
+        width: 90%;
+        background: rgba(237, 235, 240, 1);
+        font-size: 1.3rem;
+        font-family: MontserratExtraBold;
+        text-align: center;
+        text-transform: uppercase;
+        border: none;
+        color: #5200b2;
+        border-radius: 3rem;
+        box-shadow: none;
+      }
+    }
+  }
+}

@@ -1,0 +1,142 @@
+<div class="settings-component full">
+  <div class="edit-profile">
+    <div class="content">
+      <div class="form-field" (ngSubmit)="submitProfile()">
+        <input type="text" class="form-control" [(ngModel)]="centralProfile.nickName" placeholder="Name" name="nickName" />
+        <span class="edit">
+          <img src="assets/images/edit.svg" />
+        </span>
+        <div class="err" *ngIf="errors.nickName">
+          {{ errors.nickName }}
+        </div>
+      </div>
+      <div class="float d-flex align-items-center justify-content-between">
+        <div class="form-field">
+          <input name="ageGroup" class="form-control" placeholder="Age" [(ngModel)]="centralProfile.ageGroup" (click)="handleSelectClick($event, 'ageGroup')" readonly />
+          <span class="edit">
+            <img src="assets/images/arrow_down.svg" />
+          </span>
+          <div class="err" *ngIf="errors.ageGroup">
+            {{ errors.ageGroup }}
+          </div>
+        </div>
+        <div class="form-field">
+          <input name="gender" class="form-control" placeholder="Gender" [(ngModel)]="centralProfile.gender" (click)="handleSelectClick($event, 'gender')" readonly />
+          <span class="edit">
+            <img src="assets/images/arrow_down.svg" />
+          </span>
+          <div class="err" *ngIf="errors.gender">
+            {{ errors.gender }}
+          </div>
+        </div>
+      </div>
+      <div class="form-field">
+        <input name="state" class="form-control" placeholder="State" [(ngModel)]="centralProfile.state" (click)="handleSelectClick($event, 'state')" readonly />
+        <span class="edit">
+          <img src="assets/images/arrow_down.svg" />
+        </span>
+        <div class="err" *ngIf="errors.state">
+          {{ errors.state }}
+        </div>
+      </div>
+      <div class="form-field">
+        <input type="text" class="form-control" [(ngModel)]="centralProfile.emailId" placeholder="Email Id" name="emailId" />
+        <span class="edit">
+          <img src="assets/images/edit.svg" />
+        </span>
+        <div class="err" *ngIf="errors.emailId">
+          {{ errors.emailId }}
+        </div>
+      </div>
+      <div class="action">
+        <button type="button" [class.enabled]="
+            isFormDirty &&
+            (centralProfile.nickName &&
+              centralProfile.ageGroup &&
+              centralProfile.gender &&
+              centralProfile.state &&
+              !submitting)
+          " (click)="submitProfile()">
+          {{ submitting ? 'Please wait...' : 'Save' }}
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="other-settings">
+    <div class="general-settings">
+      <div class="title">General Settings</div>
+      <div class="settings-block">
+        <div class="setting">
+          <div class="left">Sound</div>
+          <div class="right">
+            <div class="switch-wrap">
+              <label class="switch">
+                <input type="checkbox" [checked]="gameProfile.sound" (change)="toggleSound()" />
+                <span class="slider"></span>
+              </label>
+            </div>
+          </div>
+        </div>
+        <!-- <div class="setting">
+          <div class="left">Language</div>
+          <div class="right">
+            <div class="text">English</div>
+            <div class="img-wrap"><img src="assets/images/arrow_down_black.png" /></div>
+          </div>
+        </div> -->
+      </div>
+    </div>
+    <div class="more-options">
+      <div class="title">More Options</div>
+      <div class="settings-block">
+        <div class="setting" (click)="launchUrl('how-to-play')">
+          <div class="left">How to play?</div>
+          <div class="right">
+            <div class="img-wrap">
+              <img src="assets/images/arrow_right_black.png" />
+            </div>
+          </div>
+        </div>
+        <div class="setting" (click)="launchUrl('faq')">
+          <div class="left">FAQ</div>
+          <div class="right">
+            <div class="img-wrap">
+              <img src="assets/images/arrow_right_black.png" />
+            </div>
+          </div>
+        </div>
+        <div class="setting" (click)="launchUrl('tnc')">
+          <div class="left">Terms & Conditions</div>
+          <div class="right">
+            <div class="img-wrap">
+              <img src="assets/images/arrow_right_black.png" />
+            </div>
+          </div>
+        </div>
+        <div class="setting" (click)="launchUrl('invite')">
+          <div class="left">Invite Friends</div>
+          <div class="right">
+            <div class="img-wrap">
+              <img src="assets/images/arrow_right_black.png" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="dropdown-popup">
+  <div class="bg" (click)="toggleDropdownPopup()" *ngIf="showDropdownPopup"></div>
+  <div class="popup-content" [class.show]="showDropdownPopup">
+    <div class="title">{{ dropdownPopupConfig.title }}</div>
+    <div class="values">
+      <div class="value" *ngFor="let value of dropdownPopupConfig.values" [class.active]="centralProfile[dropdownPopupConfig.key] === value.value" (click)="handleSelectValue(value.value)">
+        <div class="selection">
+          <img src="assets/images/selected.svg" *ngIf="centralProfile[dropdownPopupConfig.key] === value.value" />
+        </div>
+        {{ value.title }}
+      </div>
+    </div>
+  </div>
+</div>

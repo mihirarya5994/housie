@@ -1,0 +1,246 @@
+@import 'mixins';
+
+.room-component {
+  background: url(~src/assets/images/profile-capture-bg.png) no-repeat top center;
+  background-size: cover;
+  background-color: #B2EDFF;
+
+  .content {
+    padding: 1rem 2rem;
+
+    .join-room {
+      background-color: #71DEFF;
+      margin: 1rem 0;
+      border-radius: 10px;
+      width: 100%;
+
+      .top {
+        @include flex-container(center);
+        flex-direction: column;
+        height: 4rem;
+
+        .text {
+          font-family: MontserratSemiBold;
+          font-size: 1.2rem;
+          text-align: center;
+          color: #0041AA;
+        }
+
+        .text-bold {
+          font-family: MontserratExtraBold;
+          font-size: 1.2rem;
+          text-transform: uppercase;
+          margin-top: -6px;
+          text-align: center;
+          color: #0041AA;
+        }
+      }
+
+      .middle {
+        padding: 0.5rem 2rem;
+
+        .enter-code {
+          width: 100%;
+          padding: 2%;
+
+          .wrapper {
+            display: flex;
+            justify-content: space-around;
+            background: #ccc;
+            width: 100%;
+            padding: 2%;
+
+            input {
+              margin: 0;
+            }
+
+            .otp-input {
+              width: 16% !important;
+              height: 55px !important;
+              font-weight: bold;
+              text-transform: uppercase;
+              font-size: 2rem;
+            }
+          }
+        }
+
+        .text {
+          font-family: MontserratSemiBold;
+          font-size: 0.75rem;
+          text-align: center;
+          color: #0041AA;
+        }
+      }
+
+      .bottom {
+        background-image: linear-gradient(to bottom, rgba(67, 219, 252, 1), rgba(4, 114, 250, 1));
+        border-top: 0.1rem solid #15AFF9;
+        height: 3.50rem;
+        line-height: 3.25rem;
+        border-bottom-right-radius: 10px;
+        border-bottom-left-radius: 10px;
+        display: flex;
+        justify-content: space-between;
+
+        .left {
+          color: #fff;
+          font-family: MontserratExtraBold;
+          font-size: 1.0rem;
+          padding-left: .75rem;
+        }
+
+        img {
+          max-width: 78%;
+          max-height: 78%;
+        }
+      }
+    }
+
+    .separator {
+      text-align: center;
+      font-family: MontserratSemiBold;
+      font-weight: 200;
+    }
+
+    .game-leader {
+      margin: 1rem 0;
+      border-radius: 10px;
+      background-color: #71DEFF;
+
+      .top {
+        @include flex-container(center);
+        flex-direction: column;
+        height: 4rem;
+
+        .text {
+          font-family: MontserratSemiBold;
+          font-size: 1.2rem;
+          text-align: center;
+          color: #0041AA;
+        }
+
+        .text-bold {
+          font-family: MontserratExtraBold;
+          font-size: 1.2rem;
+          text-transform: uppercase;
+          margin-top: -6px;
+          text-align: center;
+          color: #0041AA;
+        }
+      }
+
+      .bottom {
+        background-image: linear-gradient(to bottom, rgba(67, 219, 252, 1), rgba(4, 114, 250, 1));
+        border-top: 0.1rem solid #15AFF9;
+        height: 3.50rem;
+        line-height: 3.25rem;
+        border-bottom-right-radius: 10px;
+        border-bottom-left-radius: 10px;
+        justify-content: space-between;
+        display: flex;
+
+        .left {
+          color: #fff;
+          font-family: MontserratExtraBold;
+          font-size: 1.0rem;
+          padding-left: 0.5rem;
+        }
+
+        img {
+          max-width: 78%;
+          max-height: 78%;
+        }
+      }
+    }
+  }
+}
+
+.room-error-popup {
+  .bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 10;
+    background: rgba(0, 0, 0, 0.5);
+    animation: fadein 0.3s ease-in;
+  }
+
+  .popup-content {
+    position: absolute;
+    left: 0;
+    bottom: -100%;
+    right: 0;
+    z-index: 10;
+    max-height: 60%;
+    text-align: center;
+    background: #fff;
+    transition: bottom 0.3s ease-in;
+    overflow-y: auto;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+
+    &.show {
+      bottom: 0;
+    }
+
+    .title {
+      background-color: #0041AA;
+      background-size: cover;
+      color: #fff;
+      font-family: MontserratSemiBold;
+      font-size: 1.25rem;
+      padding: 1rem;
+      border-top-left-radius: 10px;
+      border-top-right-radius: 10px;
+    }
+
+    .body {
+      font-family: MontserratRegular;
+      font-size: 1.25rem;
+      display: flex;
+      justify-content: space-evenly;
+      align-items: center;
+      flex-direction: column;
+      padding: 1rem;
+
+      .error-message {
+        margin: 2rem 0;
+
+        .text {
+          font-family: MontserratRegular;
+          font-size: 1.0rem;
+        }
+
+        .text-bold {
+          font-family: MontserratSemiBold;
+          font-size: 1.25rem;
+          color: #000;
+        }
+      }
+
+      .okay-btn {
+        width: 100%;
+        @include flex-container(center);
+
+        button {
+          height: 40px;
+          width: 100%;
+          background: #EDEBF0;
+          font-size: 1.3rem;
+          font-family: MontserratExtraBold;
+          text-align: center;
+          text-transform: uppercase;
+          color: #0041AA;
+          border-radius: 3rem;
+          box-shadow: none;
+
+          &:focus {
+            outline: none !important;
+          }
+        }
+      }
+    }
+  }
+}

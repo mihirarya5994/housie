@@ -1,0 +1,89 @@
+@import 'mixins';
+
+.ticket-component {
+  padding: 0.5rem 0.75rem;
+
+  &.cancelled {
+    .ticket-id {
+      background: red;
+      font-family: MontserratBold;
+      display: inline-block;
+    }
+
+    .ticket-wrap {
+      .ticket {
+        background: rgba(255, 0, 0, 0.4);
+        pointer-events: none;
+      }
+    }
+  }
+
+  .ticket-id {
+    color: #fff;
+    font-family: MontserratSemiBold;
+    font-size: 0.9rem;
+  }
+
+  .ticket-wrap {
+    position: relative;
+
+    .ticket {
+      position: relative;
+      background: #fff;
+      padding: 0.6rem;
+      border-radius: 10px;
+      margin-top: 0.5rem;
+      -webkit-box-shadow: 0 0 5px 2px #00286999;
+      -moz-box-shadow: 0 0 5px 2px #00286999;
+      box-shadow: 0 0 5px 2px #00286999;
+
+      .line {
+        @include flex-container(space-between);
+
+        .box {
+          width: 2.4rem;
+          height: 2.4rem;
+          background: #edebf0;
+          margin: 2px;
+          border-radius: 4px;
+          text-align: center;
+          line-height: 2.4rem;
+          font-family: MontserratExtraBold;
+          font-size: 1.3rem;
+
+          &.golden {
+            color: #0041AA;
+          }
+
+          &.private {
+            color: #0041AA
+          }
+
+          &.daubed {
+            background: #434343;
+            color: #ffff;
+          }
+        }
+      }
+    }
+
+    .disabled-mask {
+      width: 100%;
+      height: 100%;
+      background: #000;
+      opacity: 0.6;
+      border-radius: 10px;
+    }
+
+    .lock-icn {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+
+      img {
+        animation: fadein 0.3s ease-in, scale-up 0.3s ease;
+      }
+    }
+  }
+}

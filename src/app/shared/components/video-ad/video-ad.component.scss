@@ -1,0 +1,29 @@
+.video-ad-component {
+    background-image: linear-gradient(to bottom, rgba(8, 49, 126, 1), rgba(34, 103, 250, 1));
+    margin: 0.5rem 1rem;
+    padding: 0.5rem 0.5rem;
+    border-radius: 0.5rem;
+    background-color: #fff;
+    display: flex;
+    justify-content: space-between;
+    .left {
+        display: flex;
+        align-items: center;
+        .img-wrap {
+            margin-right: 1rem;
+        }
+        .content {
+            font-size: 1rem;
+            color: #fff;
+            .text-bold {
+                font-family: MontserratBold;
+            }
+            .text {
+                font-family: MontserratRegular;
+            }
+        }
+    }
+    .right {
+        display: flex;
+    }
+}

@@ -1,0 +1,21 @@
+<div class="exit-popup-component">
+  <div class="bg full"></div>
+
+  <div class="exit-popup-content">
+    <div class="header">
+      <div class="title">
+        exit
+      </div>
+    </div>
+
+    <div class="content">
+      <div class="text"> You are hurting your Friends! </div>
+      <div class="bold-text">Do you want to quit the game?</div>
+      <div class="cta">
+        <div class="button" *ngFor="let button of cta" (click)="handleClick(button)">
+          {{ button.text }}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,16 @@
+<div class="full-page-ad-component" *ngIf="show">
+  <div class="bg full"></div>
+  <div class="content full">
+    <div class="ad-container">
+      <app-ad adId="a8aa553c" type="billboard"></app-ad>
+    </div>
+    <div class="skip" *ngIf="canSkip" (click)="stopAd()">Skip Ad</div>
+    <div class="timer" *ngIf="showProgressBar">
+      <!-- <div class="timer-value">-{{ duration }} Sec</div> -->
+      <div class="timer-value">Game will continue after the Ad</div>
+      <div class="outer">
+        <div class="inner" [style.width.%]="(duration / initialDuration) * 100"></div>
+      </div>
+    </div>
+  </div>
+</div>

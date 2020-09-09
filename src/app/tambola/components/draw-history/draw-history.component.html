@@ -1,0 +1,8 @@
+<div class="draw-history {{currentEventSponsor.type}}">
+    <div class="ball-group {{currentEventSponsor.type}}" *ngFor="let ballGroup of board">
+        <div class="ball-wrap {{currentEventSponsor.type}}" *ngFor="let ball of ballGroup">
+            <div class="ball {{currentEventSponsor.type}}" [class.called]="ball.called">{{ ball.number }}</div>
+            <div class="strike {{currentEventSponsor.type}}" *ngIf="ball.called"></div>
+        </div>
+    </div>
+</div>

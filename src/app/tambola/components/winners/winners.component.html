@@ -1,0 +1,33 @@
+<div class="winners-component full" *ngIf="loading">
+  <app-loader color="blue"></app-loader>
+</div>
+<div class="winners-component full" *ngIf="!loading && activeEvent">
+  <div class="calendar" #winner>
+    <div class="calendar-item" *ngFor="let event of events" (click)="getWinnersForEvent(event)" [class.active]="activeEvent === event">
+      <div class="day">
+        <div class="date">{{ event.date }}</div>
+        <div class="month">{{ event.month }}</div>
+      </div>
+      <div class="meridian">
+        <div class="text-center">{{ event.hours }}{{ event.meridian }}</div>
+      </div>
+    </div>
+  </div>
+  <div class="winners" *ngIf="loadingWinners">
+    <app-loader color="blue"></app-loader>
+  </div>
+  <div class="winners" *ngIf="!loadingWinners">
+    <div class="winner-card" *ngFor="let winner of activeEvent.winners">
+      <div class="left">
+        <div class="avatar">
+          <img src="assets/images/male.svg" />
+        </div>
+        <div class="user">
+          <div class="name">{{ winner.nickName }}</div>
+          <div class="win">{{ winner.prize }}</div>
+        </div>
+      </div>
+      <div class="right">{{ winner.win }}</div>
+    </div>
+  </div>
+</div>

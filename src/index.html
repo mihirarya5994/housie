@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, shrink-to-fit=no" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <title>Jio Tambola</title>
+  <base href="/" />
+  <link rel="icon" type="image/x-icon" href="favicon.ico" />
+  <script type="text/javascript">
+    window.AD_USER = {};
+    window.AD_INFO = {};
+    window.ADSDKEXT = {};
+
+  </script>
+</head>
+
+<body onload="loadCss()">
+  <div class="container">
+    <app-root></app-root>
+  </div>
+  <script>
+    function loadCss() {
+      const head = document.getElementsByTagName('head')[0];
+      let themeLink = document.getElementById('client-theme');
+      if (themeLink) {
+        themeLink.href = styleName;
+      } else {
+        const style = document.createElement('link');
+        style.id = 'client-theme';
+        style.rel = 'stylesheet';
+        style.href = 'client.css';
+
+        head.appendChild(style);
+      }
+    }
+
+  </script>
+  <script type="text/javascript">
+    window.digitalData = window.digitalData || {};
+
+  </script>
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?
+      id=GTM-TDJBK5Z" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+  </noscript>
+  <script src="//jioads.akamaized.net/WSDK_JAWS/ad.js?ver=v1.1.5"></script>
+</body>
+
+</html>

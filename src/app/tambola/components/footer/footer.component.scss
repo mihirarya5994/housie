@@ -1,0 +1,35 @@
+@import 'mixins';
+
+.footer-component {
+  @include flex-container(space-between);
+  padding: 0 4rem;
+  box-shadow: 0 0px 5px #bbb;
+  height: 100%;
+  .link {
+    @include flex-container(center);
+    flex-direction: column;
+    position: relative;
+    &.active {
+      .title {
+        color: #4a009b;
+      }
+    }
+    .icon {
+      margin-bottom: 2px;
+    }
+    .prize-notf-icon {
+      width: 0.45rem;
+      height: 0.45rem;
+      background: #ff00ff;
+      border-radius: 100px;
+      position: absolute;
+      top: 0;
+      right: 0;
+    }
+    .title {
+      text-transform: uppercase;
+      color: #919191;
+      font-size: 0.7rem;
+    }
+  }
+}

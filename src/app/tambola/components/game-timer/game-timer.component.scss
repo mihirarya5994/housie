@@ -1,0 +1,19 @@
+@import 'mixins';
+.game-timer {
+    .text {
+        color: #000;
+        font-size: 0.95rem;
+        font-family: MontserratSemiBold;
+        text-transform: uppercase;
+    }
+    .timer {
+        @include flex-container(center);
+        color: #0041AA;
+        font-family: MontserratBold;
+        font-size: 1.1rem;
+        margin-top: -4px;
+        .separator {
+            margin: 0 5px;
+        }
+    }
+}

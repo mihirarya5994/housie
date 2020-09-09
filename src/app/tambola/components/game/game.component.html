@@ -1,0 +1,378 @@
+<div class="game-component full" *ngIf="loading">
+  <app-loader></app-loader>
+</div>
+<div class="game-component full {{ currentEventSponsor?.type }}">
+  <div class="incoming-ad-wrapper" *ngIf="incomingAd" [class.mini]="showHistory">
+    <div class="incoming-ad">
+      AD starting in 00:{{ incomingAdDuration | pad }} Sec
+    </div>
+  </div>
+  <section class="section-1 {{ currentEventSponsor?.type }}" *ngIf="!showHistory">
+    <div class="game-ui {{ currentEventSponsor?.type }}" *ngIf="!currentEvent.started">
+      <div class="game-timer-wrap" *ngIf="gameType !== 'private'">
+        <app-game-timer [date]="currentEvent.start" (start)="handleTimerEnd()"></app-game-timer>
+      </div>
+      <div class="start-game-message" *ngIf="gameType === 'private' && !isRoomLeader && eventStatus !== 'started' && !loading">
+        Ask your friend to start the game.
+      </div>
+    </div>
+
+    <div class="game-ui {{ currentEventSponsor?.type }}" *ngIf="eventStatus === 'started' || currentEvent.started">
+      <div class="confetti-wrap full" *ngIf="gameState.successfulClaim">
+        <app-confetti class="full"></app-confetti>
+      </div>
+      <div class="current-draw-wrap" *ngIf="eventStatus === 'started' || currentEvent.started">
+        <div class="text">Current Call</div>
+        <div class="flipper {{ currentEventSponsor?.type }}">
+          <app-flipper [currentBall]="gameState.currentBall"></app-flipper>
+        </div>
+      </div>
+      <div class="prize-list" *ngIf="gameType === 'private'">
+        <div class="prizes" (click)="showPrizes()">See Prizes</div>
+      </div>
+      <div class="safe-message">Stay home. stay safe.</div>
+      <div class="player-count" *ngIf="gameType === 'private'">
+        Players: {{playerCount ? playerCount : '0'}}
+      </div>
+    </div>
+    <div class="sound-toggle" (click)="toggleAudio()">
+      <img src="assets/images/unmute.svg" *ngIf="profile.sound" />
+      <img src="assets/images/mute.svg" *ngIf="!profile.sound" />
+    </div>
+  </section>
+  <section class="section-1 mini {{ currentEventSponsor?.type }}" *ngIf="showHistory">
+    <div class="game-ui {{ currentEventSponsor?.type }}" *ngIf="!currentEvent.started">
+      <div class="game-timer-wrap" *ngIf="gameType !== 'private'">
+        <app-game-timer [date]="currentEvent.start" (start)="handleTimerEnd()"></app-game-timer>
+      </div>
+      <div class="start-game-message" *ngIf="gameType === 'private' && !isRoomLeader && isSponsoredRoom && eventStatus !== 'started' && !loading">
+        Ask your friend to start the game.
+      </div>
+    </div>
+    <div class="game-ui {{ currentEventSponsor?.type }}" *ngIf="eventStatus === 'started' || currentEvent.started">
+      <div class="confetti-wrap full" *ngIf="gameState.successfulClaim">
+        <app-confetti class="full"></app-confetti>
+      </div>
+      <div class="current-draw-wrap">
+        <div class="text">Current Call</div>
+        <div class="flipper {{ currentEventSponsor?.type }}">
+          <app-flipper [currentBall]="gameState.currentBall"></app-flipper>
+        </div>
+      </div>
+    </div>
+    <div class="history-toggle {{ currentEventSponsor?.type }}" *ngIf="currentEvent.started || eventStatus === 'started'" (click)="toggleHistory()">
+      <img src="assets/images/history_arrow_up.svg" />
+    </div>
+  </section>
+  <section class="section-2 {{ currentEventSponsor?.type }}" *ngIf="!showHistory">
+    <div class="draw-progress-bar" *ngIf="eventStatus === 'started' || currentEvent.started">
+      <app-draw-progress-bar></app-draw-progress-bar>
+    </div>
+    <div class="game-ui {{ currentEventSponsor?.type }}" *ngIf="
+        eventStatus !== 'started' &&
+        !showHistory &&
+        !currentEvent.started &&
+        !showHistory
+      ">
+      <div class="text" *ngIf="isSponsoredRoom && gameState.ticketId">
+        Your ticket is Ready
+      </div>
+      <div class="text" *ngIf="isSponsoredRoom && !gameState.ticketId">
+        Your ticket will be Ready 15 mins before the game starts
+      </div>
+    </div>
+    <div class="history-toggle {{ currentEventSponsor?.type }}" *ngIf="currentEvent.started || eventStatus === 'started'" (click)="toggleHistory()">
+      <img src="assets/images/history_arrow_up.svg" />
+    </div>
+    <div class="game-ui {{
+        currentEventSponsor?.type
+      }} d-flex align-items-center justify-content-between" [class.p-0]="gameState.successfulClaim || gameState.missedClaim" *ngIf="
+        (eventStatus === 'started' && !showHistory) ||
+        (currentEvent.started && !showHistory)
+      ">
+      <div class="left" *ngIf="!gameState.successfulClaim && !gameState.missedClaim">
+        <app-recent-draws [matrix]="gameState.ticketMatrix" [numbers]="gameState.drawn" [daubed]="gameState.daubed"></app-recent-draws>
+      </div>
+      <div class="claim-result success" *ngIf="gameState.successfulClaim">
+        <div class="text-1">You have successfully claimed</div>
+        <div class="text-2">{{ lastClaimedPattern?.name }}</div>
+        <div class="text-3">Check Prizes tab for reward details...</div>
+      </div>
+      <div class="claim-result success" *ngIf="gameState.wonSecretReward">
+        <div class="text-1">You just unlocked</div>
+        <div class="text-2">Secret Reward</div>
+        <div class="text-3">Check Prizes tab for reward details...</div>
+      </div>
+      <div class="claim-result error" *ngIf="gameState.missedClaim">
+        <div class="text-1">You have missed {{ lastClaimedPattern?.name }}</div>
+        <div>by few seconds</div>
+      </div>
+    </div>
+  </section>
+  <section class="section-2 max" *ngIf="showHistory">
+    <div class="draw-progress-bar" *ngIf="eventStatus === 'started' || currentEvent.started">
+      <app-draw-progress-bar></app-draw-progress-bar>
+    </div>
+    <div class="draw-history {{ currentEventSponsor?.type }}" *ngIf="showHistory">
+      <app-draw-history [history]="gameState.drawn"></app-draw-history>
+    </div>
+  </section>
+  <section class="section-5">
+    <app-ad></app-ad>
+  </section>
+  <section class="section-3" *ngIf="gameType !== 'private'">
+    <app-ticket [ticketId]="gameState.ticketId" [matrix]="gameState.ticketMatrix" [cancelled]="gameState.isBogie" [disabled]="!currentEvent.started" [daubed]="gameState.daubed"
+      (daub)="handleDaub($event)"></app-ticket>
+  </section>
+  <section class="section-3" *ngIf="gameType === 'private'">
+    <app-ticket [ticketId]="gameState.ticketId" [matrix]="gameState.ticketMatrix" [cancelled]="gameState.isBogie" [disabled]="eventStatus === 'inactive'" [daubed]="gameState.daubed"
+      (daub)="handleDaub($event)">
+    </app-ticket>
+  </section>
+  <!-- <div class="section-4" *ngIf="!(gameState.isBogie && gameState.nextevent)"> -->
+  <!-- <section class="section-3 {{currentEventSponsor?.type}}">
+            <div class="sponsor" *ngIf="currentEventSponsor?.type === 'sponsor'">
+                <div class="text">All Prizes by:</div>
+                <img src="assets/images/mazaa/maaza-label.png">
+            </div>
+            <app-ticket [ticketId]="gameState.ticketId" [matrix]="gameState.ticketMatrix" [cancelled]="gameState.isBogie" [disabled]="!currentEvent.started" [daubed]="gameState.daubed" (daub)="handleDaub($event)"></app-ticket>
+        </section> -->
+  <div class="section-4 {{ currentEventSponsor?.type }}">
+    <div class="claim-btns">
+      <div class="claim-btn {{ currentEventSponsor?.type }}" *ngFor="let pattern of gameState.winPatterns" [class.disabled]="
+          !pattern.available ||
+          pattern.claimed ||
+          (!currentEvent.started && eventStatus !== 'started') ||
+          gameState.isBogie
+        " [class.won]="pattern.prizeImage && gameType !== 'private'" [class.privateWon]="gameType === 'private' && pattern.claimed" [class.validating]="pattern.validating"
+        (click)="toggleClaimConfirmationPopup(pattern)">
+        <div *ngIf="
+            !pattern.validating && !pattern.prizeImage && gameType !== 'private'
+          ">
+          <div class="title">{{ pattern.name }}</div>
+          <div class="stats">{{ pattern.available }} / {{ pattern.total }}</div>
+        </div>
+        <div *ngIf="
+            !pattern.validating && pattern.prizeImage && gameType !== 'private'
+          ">
+          <img [src]="pattern.prizeImage | safe" *ngIf="pattern.prizeImage" />
+        </div>
+        <div *ngIf="
+            !pattern.validating && !pattern.claimed && gameType === 'private'
+          ">
+          <div class="title">{{ pattern.name }}</div>
+          <div class="stats">{{ pattern.available }} / {{ pattern.total }}</div>
+        </div>
+        <div *ngIf="
+            !pattern.validating && pattern.claimed && gameType === 'private'
+          ">
+          <div class="points-won">
+            <div class="right">
+              <img src="assets/images/coins.png" />
+            </div>
+            <div class="left">
+              <div class="point-text">YOU WON</div>
+              <div class="points">{{ pattern?.pointsWon }}</div>
+            </div>
+          </div>
+        </div>
+        <div class="title" *ngIf="pattern.validating">
+          Validating...
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="section-4 with-timer" *ngIf="gameState.isBogie && gameState.nextevent">
+    <div class="game-timer-wrap">
+      <app-game-timer [date]="gameState.nextevent" [forNextGame]="true"></app-game-timer>
+    </div>
+  </div>
+  <!-- <section class="section-5">
+    <app-ad></app-ad>
+  </section> -->
+  <section class="section-6" *ngIf="gameType === 'private'">
+    <div class="notification" *ngIf="notification && chatNotification?.message.name !== profileNickName">
+      <div class="sticker-message">
+        <div class="name">
+          {{ chatNotification?.message.name || Player }}
+        </div>
+        <div class="text">
+          {{chatNotification?.message.text}}
+        </div>
+      </div>
+    </div>
+    <div class="chat-window" (click)="openChatWindowOverlay(true)">Type a message...</div>
+  </section>
+</div>
+<div class="game-results" *ngIf="isSponsoredRoom && gameState.eventstatus === 'ended'">
+  <div class="bg"></div>
+  <div class="popup-content">
+    <div class="top">
+      <div class="title">Game Over</div>
+      <app-ad adId="a8aa553c" type="billboard"></app-ad>
+      <div class="message">All the prizes for today are claimed</div>
+    </div>
+    <div class="bottom">
+      <button type="button" class="results" (click)="showResults()">
+        <p>See Results</p>
+      </button>
+      <button type="button" class="next-game" (click)="joinNextGame()">
+        <p>Join Next Game</p>
+      </button>
+    </div>
+  </div>
+</div>
+
+
+<div class="game-results" *ngIf="!isSponsoredRoom && gameState.eventstatus === 'ended'">
+  <div class="bg"></div>
+  <div class="popup-content">
+    <div class="top">
+      <div class="title">Game Over</div>
+      <app-ad adId="a8aa553c" type="billboard"></app-ad>
+      <div class="message">All the prizes for today are claimed</div>
+    </div>
+    <div class="bottom">
+      <button type="button" class="results" (click)="showFriendsResult()">
+        <p>See Results</p>
+      </button>
+      <!-- <button type="button" class="next-game" (click)="joinNextGame()">
+        <p>Join Next Game</p>
+      </button> -->
+    </div>
+  </div>
+</div>
+
+<div class="bogie-popup">
+  <div class="bg" *ngIf="showBogiePopup"></div>
+  <div class="popup-content" [class.show]="showBogiePopup" *ngIf="showBogiePopup">
+    <div class="title">Bogie</div>
+    <div class="message">
+      <div class="text-1">Your claim is invalid</div>
+      <div class="text-2">Unannounced numbers were marked on the ticket</div>
+      <div class="actions">
+        <button type="button" (click)="toggleBogiePopup()">Okay</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="bogie-popup claim-confirmation">
+  <div class="bg" *ngIf="showClaimConfirmationPopup"></div>
+  <div class="popup-content" [class.show]="showClaimConfirmationPopup" *ngIf="showClaimConfirmationPopup">
+    <div class="title">Claim</div>
+    <div class="message">
+      <div class="text-1">Invalid Claim will result Bogie,</div>
+      <div class="text-2">Are you sure you want to claim?</div>
+      <div class="actions">
+        <button type="button" (click)="handleClaimWin()">Yes</button>
+        <button type="button" (click)="toggleClaimConfirmationPopup(null)">
+          No
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="prizes popup">
+  <div class="bg" (click)="showPrizes()" *ngIf="prizeList"></div>
+  <div class="popup-content" [class.show]="prizeList">
+    <div class="title">Pool Coins Distribution</div>
+    <div class="body">
+      <div class="container">
+        <div class="prize-type">
+          <div class="distribution">
+            <div class="prize-name">Early 5</div>
+            <div class="amount">
+              <div class="coin-img">
+                <img src="assets/images/coins.png" />
+              </div>
+              <div class="coins-count">{{ prizeDistribution?.first5 }}</div>
+            </div>
+          </div>
+          <div class="distribution">
+            <div class="prize-name">Top Line</div>
+            <div class="amount">
+              <div class="coin-img">
+                <img src="assets/images/coins.png" />
+              </div>
+              <div class="coins-count">{{ prizeDistribution?.row1 }}</div>
+            </div>
+          </div>
+          <div class="distribution">
+            <div class="prize-name">Middle Line</div>
+            <div class="amount">
+              <div class="coin-img">
+                <img src="assets/images/coins.png" />
+              </div>
+              <div class="coins-count">{{ prizeDistribution?.row2 }}</div>
+            </div>
+          </div>
+          <div class="distribution">
+            <div class="prize-name">Bottom Line</div>
+            <div class="amount">
+              <div class="coin-img">
+                <img src="assets/images/coins.png" />
+              </div>
+              <div class="coins-count">{{ prizeDistribution?.row3 }}</div>
+            </div>
+          </div>
+          <div class="distribution">
+            <div class="prize-name">Corners</div>
+            <div class="amount">
+              <div class="coin-img">
+                <img src="assets/images/coins.png" />
+              </div>
+              <div class="coins-count">{{ prizeDistribution?.corners }}</div>
+            </div>
+          </div>
+          <div class="distribution">
+            <div class="prize-name">Full House</div>
+            <div class="amount">
+              <div class="coin-img">
+                <img src="assets/images/coins.png" />
+              </div>
+              <div class="coins-count">{{ prizeDistribution?.fullhouse }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="okay-btn">
+        <button type="button" (click)="showPrizes()">OKAY</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="game-leader-left-popup">
+  <div class="bg" *ngIf="showLeaderLeftTheGamePopup"></div>
+  <div class="popup-content" [class.show]="showLeaderLeftTheGamePopup">
+    <div class="title">Ooopss</div>
+    <div class="body">
+      <div class="container">
+        <div class="text ">The room does not exist</div>
+        <div class="bold-text">The game leader quit!!</div>
+      </div>
+      <div class="okay-btn">
+        <button type="button" (click)="redirectToHome()">OKAY</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="popup">
+  <div class="bg" (click)="exitGamePopUp()" *ngIf="showLeaveConfirmationPopUp"></div>
+  <div class="popup-content" [class.show]="showLeaveConfirmationPopUp">
+    <div class="title">Warning !!</div>
+    <div class="body">
+      <div class="container">
+        <div class="text"> You are hurting your Friends! </div>
+        <div class="bold-text">Do you want to quit the game?</div>
+      </div>
+      <div class="okay-btn">
+        <button type="button" (click)="quitGame()">YES</button>
+        <button type="button" (click)="doNotQuit()">NO</button>
+      </div>
+    </div>
+  </div>
+</div>

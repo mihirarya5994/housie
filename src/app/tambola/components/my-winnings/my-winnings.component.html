@@ -1,0 +1,55 @@
+<div class="my-winnings-component full" *ngIf="loading">
+  <app-loader color="blue"></app-loader>
+</div>
+<div class="my-winnings-component full" *ngIf="!loading">
+  <div class="no-data" *ngIf="!winnings.length">
+    <div class="text">You are one step away from winning big</div>
+    <div class="tambola-logo-wrap">
+      <img src="assets/images/redeem_logo.svg" />
+    </div>
+  </div>
+  <ng-container *ngIf="winnings.length">
+    <div class="win-card" *ngFor="let win of winnings">
+      <div class="win-title">{{ win.achievement }}</div>
+      <div class="win-details">
+        <div class="prize">
+          <div class="name">{{ win.name }}</div>
+          <div class="img">
+            <img [src]="win.img | safe" />
+          </div>
+        </div>
+        <div class="prize-details">
+          <div class="ticket-id" *ngIf="win.ticketId">
+            Ticket Id: {{ win.ticketId }}
+          </div>
+          <div class="text">
+            {{
+              win.couponCode
+                ? win.desc
+                : "JioTambola team will connect with you."
+            }}
+          </div>
+          <div class="coupon-code" *ngIf="win.couponCode">
+            <div class="code">{{ win.couponCode }}</div>
+            <div class="expiry">
+              <div class="expiry-text">Expiry Date</div>
+              <div class="date">{{ win.expiryDate | date: "dd MMM yyyy" }}</div>
+            </div>
+          </div>
+          <div class="claim-btn" *ngIf="win.couponCode && !win.expired">
+            <button type="button" (click)="copyCouponCode(win)">
+              Copy
+            </button>
+            <button type="button" (click)="claim(win)">Claim</button>
+          </div>
+          <div class="expiry-btn" *ngIf="win.couponCode && win.expired">
+            <button type="button">Expired</button>
+          </div>
+          <div class="tnc" (click)="checkTnc(win.tnc)">
+            Check T&C
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</div>

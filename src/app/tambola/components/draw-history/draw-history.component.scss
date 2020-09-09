@@ -1,0 +1,75 @@
+@import "mixins";
+
+.draw-history {
+  @include flex-container(center);
+  flex-wrap: wrap;
+  width: 100%;
+  height: 100%;
+  padding: 0.5rem;
+
+  &.golden {
+    background: #71deff;
+  }
+
+  .ball-group {
+    width: 33%;
+    @include flex-container(center);
+    flex-wrap: wrap;
+    padding: 0.15rem;
+
+    .ball-wrap {
+      width: calc(20% - 2px);
+      @include flex-container(center);
+      display: inline-flex;
+      position: relative;
+      margin: 1px;
+
+      .ball {
+        @include flex-container(center);
+        display: inline-flex;
+        border-radius: 5px;
+        width: 1.45rem;
+        height: 1.45rem;
+        font-family: MontserratMedium;
+        font-size: 0.9rem;
+        transition: background 0.3s ease;
+
+        &.golden {
+          color: #fff;
+          background: #0041aa;
+        }
+
+        &.private {
+          color: #fff;
+          background: #0041aa;
+        }
+
+        &.called {
+          &.golden {
+            background: #d71920;
+          }
+
+          &.private {
+            background: #d71920;
+          }
+        }
+      }
+
+      .strike {
+        &.golden {
+          border: 1px solid #00c3ff;
+        }
+
+        &.private {
+          border: 1px solid #00c3ff;
+        }
+
+        position: absolute;
+        height: 100%;
+        top: 0;
+        bottom: 0;
+        transform: rotate(45deg);
+      }
+    }
+  }
+}

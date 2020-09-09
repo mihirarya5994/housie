@@ -1,0 +1,136 @@
+<div class="manage-room-component full" *ngIf="loading">
+  <app-loader></app-loader>
+</div>
+<div class="manage-room-component full" *ngIf="!loading">
+  <div class="game-incharge">
+    <div class="message">
+      <div class="text">You are now</div>
+      <div class="text-bold">GAME INCHARGE</div>
+    </div>
+    <div class="enter-code">
+      <div class="input">
+        <ng-otp-input #ngOtpInput [config]="getConfig()" maxLength="1" [config]="config" [attr.readonly]="isReadOnly" [attr.disabled]="isDisabled"></ng-otp-input>
+      </div>
+      <div class="share-code" (click)="shareCode()">
+        <div class="title">SHARE CODE</div>
+        <div class="img-wrap">
+          <img src="assets/images/Share.svg">
+        </div>
+      </div>
+      <div class="message">
+        <div class="text" *ngIf="playerStatus">Waiting for friends to Join</div>
+        <div class="text-bold">Players Joined :
+          <span *ngIf="playerStatus.length == 0; else Show">{{playerStatus.length +1  }}</span>
+          <ng-template #Show>
+            <span>{{playerStatus.length }}</span>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+    <div class="manage-player" *ngIf="!playerStatus.length">
+      <div class="player-info">
+        <div class="left">
+          <div class="img-wrap">
+            <img src="assets/images/avatar.svg">
+          </div>
+          <div class="details">
+            <div class="name d-flex">{{ serverProfile?.nickName}}</div>
+            <!-- <div class="ticket-detail" *ngIf="!player.hasTicket">Yet to buy ticket</div> -->
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="manage-player" *ngIf="playerStatus.length">
+      <div class="player-info" *ngFor="let player of playerStatus">
+        <div class="left">
+          <div class="img-wrap">
+            <img src="assets/images/avatar.svg">
+          </div>
+          <div class="details">
+            <div class="name d-flex">{{ player.name}}</div>
+            <div class="ticket-detail" *ngIf="!player.hasTicket">Yet to buy ticket</div>
+          </div>
+        </div>
+        <div class="right">
+          <div class="img-wrap">
+            <img src="assets/images/Ticket.svg" *ngIf="player.hasTicket">
+            <img src="assets/images/Kick.svg" (click)="kickOutPlayer(player)" *ngIf="!player.hasTicket">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="bottom">
+      <button type="button" [class.noTicket]="!(hasTicket.length >= 2)" class="button" (click)="startGame()">
+        <!-- <button type="button" class="button" (click)="continueGame()"> -->
+        <div class="left">START GAME</div>
+        <div class="right">
+          <img src="assets/images/coins.png" />
+          <div class="amount">{{room?.ticketPrice}}</div>
+        </div>
+      </button>
+    </div>
+  </div>
+  <div class="video-ad-footer" *ngIf="!isKeyBoardPresent">
+    <app-video-ad [roomId]="room?.roomId"></app-video-ad>
+  </div>
+  <div class="chat">
+    <div class="notification" *ngIf="notification && chatNotification?.message.name !==  serverProfile?.nickName">
+      <div class="sticker-message">
+        <div class="name">
+          {{ chatNotification?.message.name || Player }}
+        </div>
+        <div class="text">
+          {{chatNotification?.message.text}}
+        </div>
+      </div>
+    </div>
+    <div class="chat-window" (click)="openChatWindowOverlay(true)">Type a message...</div>
+  </div>
+</div>
+<div class="popup">
+  <div class="bg" (click)="ticketStatusPopUp()" *ngIf="showPopUp"></div>
+  <div class="popup-content" [class.show]="showPopUp">
+    <div class="title">Insufficient Coins</div>
+    <div class="body">
+      <div class="container">
+        <div class="text"> Your coins are insufficient to join this game room! </div>
+        <div class="bold-text">Watch video ad to earn the coins</div>
+      </div>
+      <div class="okay-btn">
+        <button type="button" (click)="ticketStatusPopUp()">OKAY</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="popup">
+  <div class="bg" (click)="exitGamePopUp()" *ngIf="showConfirmationPopUp"></div>
+  <div class="popup-content" [class.show]="showConfirmationPopUp">
+    <div class="title">Warning !!</div>
+    <div class="body">
+      <div class="container">
+        <div class="text"> You are hurting your Friends! </div>
+        <div class="bold-text">Do you want to quit the game?</div>
+      </div>
+      <div class="okay-btn">
+        <button type="button" (click)="quitGame()">YES</button>
+        <button type="button" (click)="doNotQuit()">NO</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="popup">
+  <div class="bg" (click)="doNotContinue()" *ngIf="startGamePopup"></div>
+  <div class="popup-content" [class.show]="startGamePopup">
+    <div class="title">Oops !!</div>
+    <div class="body">
+      <div class="container">
+        <div class="text">Some players have not bought the ticket.</div>
+        <div class="bold-text">Do you wish to continue?</div>
+      </div>
+      <div class="okay-btn">
+        <button type="button" (click)="doNotContinue()">NO</button>
+        <button type="button" (click)="continueGame()">YES</button>
+      </div>
+    </div>
+  </div>
+</div>

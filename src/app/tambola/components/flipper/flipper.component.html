@@ -1,0 +1,10 @@
+<div class="flip-container {{currentEventSponsor?.type}}" [class.flip]="flip">
+  <div class="flipper">
+    <div class="front {{currentEventSponsor?.type}}">
+      <img [src]="brandImage" />
+    </div>
+    <div class="back {{currentEventSponsor?.type}}">
+      <div class="number">{{ currentBall }}</div>
+    </div>
+  </div>
+</div>

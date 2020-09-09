@@ -1,0 +1,20 @@
+@import 'mixins';
+
+.recent-draws {
+  @include flex-container(flex-start);
+  padding-right: 4rem;
+  .ball {
+    background: url(~src/assets/images/recent_draw_bg.svg) no-repeat center center;
+    background-size: cover;
+    margin-right: 5px;
+    height: 3rem;
+    width: 3rem;
+    @include flex-container(center);
+    color: #000;
+    font-size: 1rem;
+    font-family: MontserratExtraBold;
+    &.opaque {
+      opacity: 0.5;
+    }
+  }
+}

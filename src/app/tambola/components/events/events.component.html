@@ -1,0 +1,100 @@
+<div class="events-component full" *ngIf="loading">
+  <app-loader></app-loader>
+</div>
+<div class="events-component full" *ngIf="!loading">
+  <section class="carousel-wrap">
+    <app-carousel [events]="currentEvent" (navigate)="navigateToGame($event)"></app-carousel>
+  </section>
+  <section class="content">
+    <div class="card-wrap" (click)="navigateToRoom()">
+      <!-- <div class="card-wrap"> -->
+      <div class="middle">
+        <img src="assets/images/play-with-friends.gif" />
+        <!-- <button type="submit" class="play">LET'S PLAY</button> -->
+        <!-- <div class="text">Coming Soon</div> -->
+      </div>
+    </div>
+    <div class="card-group-wrap">
+      <div class="card-wrap mini invite" (click)="howToPlay()">
+        <div class="left">
+          <div class="text">How to</div>
+          <div class="text-bold">Play</div>
+        </div>
+        <div class="right">
+          <img src="assets/images/arrow.svg" />
+        </div>
+      </div>
+      <div class="card-wrap mini invite" (click)="inviteFriends()">
+        <div class="left">
+          <div class="text">Invite</div>
+          <div class="text-bold">Friends </div>
+        </div>
+        <div class="right">
+          <!-- <img src="assets/images/BigBoss.png"> -->
+          <img src="assets/images/arrow.svg" />
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="ad-wrap">
+    <app-ad></app-ad>
+  </section>
+</div>
+
+<div class="popup" *ngIf="!showTncPopup">
+  <div class="bg" (click)="noProfileSubmit()" *ngIf="showProfilePopUp"></div>
+  <div class="popup-content" [class.show]="showProfilePopUp">
+    <div class="title">Enter Name</div>
+    <div class="body">
+      <div class="container">
+        <div class="form-field">
+          <input type="text" class="form-control" [(ngModel)]="profileData.nickName" placeholder="Name" name="nickName" />
+          <span class="edit">
+            <img src="assets/images/edit.svg" />
+          </span>
+        </div>
+        <div class="err" *ngIf="errors.nickName">
+          {{ errors.nickName }}
+        </div>
+      </div>
+      <div class="okay-btn">
+        <button type="button" (click)="submitProfile()">LET'S PLAY</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="tnc-popup">
+  <div class="tnc-bg" (click)="closeTncPopUp()" *ngIf="showTncPopup"></div>
+  <div class="tnc-popup-content" [class.show]="showTncPopup">
+    <div class="tnc-title">
+      <div class="title">Terms & Conditions</div>
+      <span class="close-btn" (click)="closeTncPopUp()">
+        <img src="assets/images/close.svg" alt="" />
+      </span>
+    </div>
+    <div class="tnc-body">
+      <div class="tnc-container">
+        <div class="tnc-disclaimer">
+          <div class="check-box" (click)="acceptTnC()" *ngIf="!(TnC)"></div>
+          <div class="check-box-ticked" *ngIf="TnC" (click)="acceptTnC()">
+            <div class="right">
+              <img src="assets/images/tick.svg" alt="" />
+            </div>
+          </div>
+          <div class="tnc-text">
+            By Pressing PROCEED <br>
+            I agree to the
+            <a class="tnc underline" (click)="navigateTo('tnc')">Terms & Conditions</a>
+          </div>
+        </div>
+        <div class="proceed-btn">
+          <button type="button" [class.disabled]="!(TnC)" (click)="handleTnC()">
+            Proceed
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

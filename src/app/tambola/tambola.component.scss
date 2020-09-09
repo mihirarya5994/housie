@@ -1,0 +1,33 @@
+.tambola-component {
+  overflow: hidden;
+
+  .header-wrap {
+    height: 50px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    animation: fadein 0.3s ease-in, slide-down 0.3s;
+  }
+
+  .content-wrap {
+    position: absolute;
+    top: 50px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    &.with-footer {
+      bottom: 50px;
+    }
+  }
+
+  .footer-wrap {
+    height: 50px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    animation: fadein 0.3s ease-in, slide-up 0.3s;
+  }
+}

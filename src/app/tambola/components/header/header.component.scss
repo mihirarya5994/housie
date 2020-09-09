@@ -1,0 +1,42 @@
+@import 'mixins';
+.header-component {
+    @include flex-container(center);
+    padding: 0.5rem;
+    height: 100%;
+    box-shadow: 0 3px 5px #bbb;
+    .left {
+        position: absolute;
+        left: 10px;
+        .back {
+            margin-right: 0.5rem;
+            width: 1.2rem;
+        }
+    }
+    .logo-wrap {
+    }
+    .right {
+        position: absolute;
+        right: 10px;
+        display: flex;
+        max-height: 2.75rem;
+        .coins {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            .title {
+                font-family: MontserratSemiBold;
+                font-size: 0.6rem;
+            }
+            .amount {
+                color: #000B90;
+                font-weight: bolder;
+                font-size: 1rem;
+            }
+        }
+        .coins-img {
+            width: 2.5rem;
+            height: 2.75rem;
+        }
+    }
+}

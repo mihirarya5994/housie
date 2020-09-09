@@ -1,0 +1,48 @@
+<div class="friends-winner-component full" *ngIf="loading">
+  <app-loader color="blue"></app-loader>
+</div>
+
+<div class="friends-winner-component full" *ngIf="!loading">
+  <div class="no-data" *ngIf="!winnersResult.length || !otherWinner.length">
+    <div class="text">You are one step away from winning big</div>
+    <div class="tambola-logo-wrap">
+      <img src="assets/images/redeem_logo.svg" />
+    </div>
+  </div>
+  <div class="full-house-winner" *ngIf="winnersResult.length">
+    <div class="title">Full House Winner</div>
+    <div class="winner-name">{{fullHouseWinner?.nickName}}</div>
+    <div class="winner-coins">
+      <img class="coins-img" src="assets/images/coins.png">
+      <div class="coins">
+        <div class="amount">{{fullHouseWinner?.coins}}</div>
+        <div class="title">COINS</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="other-winner" *ngIf="otherWinner.length">
+    <div class="title">Other Winners</div>
+    <div class="winner-card" *ngFor="let winner of otherWinner">
+      <div class="left">
+        <div class="avatar">
+          <img src="assets/images/male.svg" />
+        </div>
+        <div class="user">
+          <div class="name">{{winner?.nickName}}</div>
+          <div class="win"> {{winner?.value}}</div>
+        </div>
+      </div>
+      <div class="right">
+        <img class="coins-img" src="assets/images/coins.png">
+        <div class="coins">
+          <div class="amount">{{winner?.coins}}</div>
+          <div class="text">COINS</div>
+        </div>
+      </div>
+    </div>
+    <div class="actions">
+      <button type="button" (click)="continue()">Continue</button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,177 @@
+@import 'mixins';
+
+.friends-winner-component {
+  background-size: cover;
+  text-align: center;
+  animation: fadein 0.2s ease-in;
+  display: flex;
+  flex-direction: column;
+
+  .no-data {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 5rem;
+    text-align: center;
+    width: 100%;
+
+    .text {
+      font-family: MontserratSemiBold;
+      font-size: 1.3rem;
+      color: black;
+      margin-bottom: 1.5rem;
+      line-height: 1.75rem;
+    }
+  }
+
+  .full-house-winner {
+    height: 30%;
+    padding: 0.5rem 2rem;
+    position: relative;
+    background-color: #0041AA;
+    text-align: center;
+
+    .title {
+      font-size: 18px;
+      font-family: MontserratMedium;
+      color: #ffff;
+    }
+
+    .winner-name {
+      font-size: 32px;
+      font-family: MontserratExtraBold;
+      color: #ffff;
+    }
+
+    .winner-coins {
+      justify-content: center;
+      display: flex;
+
+      .coins {
+        text-align: left;
+
+        .title {
+          font-family: MontserratExtraBold;
+          font-size: 16px;
+          color: #ffff;
+        }
+
+        .amount {
+          color: #ffff;
+          font-family: MontserratExtraBold;
+          font-size: 16px;
+        }
+      }
+
+      .coins-img {
+        width: 2.5rem;
+        height: 2.75rem;
+      }
+    }
+  }
+
+  .other-winner {
+    padding: 0 1rem 1rem;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 30%;
+    overflow-y: auto;
+
+    .title {
+      font-size: 18px;
+      font-family: MontserratSemiBold;
+      text-align: center;
+      padding: 0.8rem;
+    }
+
+    .winner-card {
+      @include flex-container(space-between);
+      background: rgba(237, 235, 240, 1);
+      padding: 1rem;
+      border-radius: 5px;
+      margin-bottom: 0.7rem;
+      animation: fadein 0.3s ease-in, slide-up 0.4s;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+
+      .left {
+        @include flex-container(space-between);
+
+        .avatar {
+          margin-right: 1rem;
+        }
+
+        .user {
+          text-align: left;
+
+          .name {
+            font-family: MontserratSemiBold;
+            font-size: 0.95rem;
+            color: rgba(74, 74, 74, 1);
+            margin-bottom: -4px;
+          }
+
+          .win {
+            background: #5200b2;
+            font-family: MontserratBold;
+            font-size: 0.6rem;
+            text-transform: uppercase;
+            color: #fff;
+            border-radius: 100px;
+            display: inline-flex;
+            padding: 0.05rem 0.5rem;
+          }
+        }
+      }
+
+      .right {
+        justify-content: center;
+        display: flex;
+
+        .coins {
+          text-align: left;
+
+          .text {
+            font-family: MontserratExtraBold;
+            font-size: 10px;
+            color: #010D91;
+          }
+
+          .amount {
+            color: #010D91;
+            font-family: MontserratExtraBold;
+            font-size: 10px;
+          }
+        }
+
+        .coins-img {
+          width: 2.5rem;
+          height: 2.75rem;
+        }
+      }
+    }
+
+    .actions {
+      width: 100%;
+
+      button {
+        height: 3.5rem;
+        width: 90%;
+        background: rgba(237, 235, 240, 1);
+        font-size: 1.3rem;
+        font-family: MontserratExtraBold;
+        text-align: center;
+        text-transform: uppercase;
+        border: none;
+        color: #5200b2;
+        border-radius: 3rem;
+        box-shadow: none;
+      }
+    }
+  }
+}

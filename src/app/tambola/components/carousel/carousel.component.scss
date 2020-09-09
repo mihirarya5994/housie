@@ -1,0 +1,36 @@
+.carousel {
+  height: 95%;
+  width: 100%;
+
+  .slide {
+    height: 100%;
+    width: 90%;
+    margin: 0 auto;
+    padding: 0.7rem 0.3rem 0 0.3rem;
+
+    img {
+      height: 100%;
+      width: 100%;
+    }
+  }
+
+  ::ng-deep .flickity-page-dots {
+    display: none;
+    bottom: -15px;
+
+    .dot {
+      border: 1px solid transparent;
+      background: #0033c4;
+      opacity: 1;
+      margin: 0 3px;
+      width: 35px;
+      height: 3.50px;
+      opacity: 0.5;
+      border-radius: 4px;
+
+      &.is-selected {
+        opacity: 1;
+      }
+    }
+  }
+}

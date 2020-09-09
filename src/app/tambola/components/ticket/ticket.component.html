@@ -1,0 +1,20 @@
+<div class="ticket-component" #ticketEle [class.cancelled]="cancelled" [class.text-left]="!!bgImage">
+  <div class="ticket-id" *ngIf="!cancelled" [class.text-left]="!!bgImage"></div>
+  <div class="ticket-id" *ngIf="cancelled" [class.text-left]="!!bgImage">
+    <div>Invalid Reward Claim.</div>
+    <div>Your ticket has been cancelled</div>
+  </div>
+  <div class="ticket-wrap">
+    <div class="ticket">
+      <div class="line" *ngFor="let row of ticketMatrix; let i = index">
+        <div class="box {{currentEventSponsor?.type}}" *ngFor="let col of row; let j = index" [class.daubed]="col.daubed" (click)="daubNumber(i, j)">
+          {{ col.number && col.number !== '0' ? col.number : '' }}
+        </div>
+      </div>
+    </div>
+    <div class="disabled-mask full" *ngIf="disabled"></div>
+    <div class="lock-icn" *ngIf="disabled">
+      <img src="assets/images/lock.svg" />
+    </div>
+  </div>
+</div>

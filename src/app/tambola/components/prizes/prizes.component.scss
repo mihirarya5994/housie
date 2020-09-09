@@ -1,0 +1,34 @@
+@import 'mixins';
+.prizes-component {
+    .tabs {
+        padding: 0 1rem;
+        @include flex-container(space-between);
+        height: 50px;
+        .tab {
+            color: #434343;
+            font-size: 3.1vw;
+            font-family: MontserratMedium;
+            border-bottom: 1px solid #707070;
+            flex: 1;
+            text-align: center;
+            padding: 3vw;
+            p{
+                margin: 0;
+            }
+            &.active {
+                color: rgba(82, 0, 178, 1);
+                font-family: MontserratMedium;
+                border-bottom: 4px solid rgba(82, 0, 178, 1);
+            }
+        }
+    }
+    .tab-content {
+        position: absolute;
+        top: 50px;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        overflow-y: auto;
+        padding: 1rem;
+    }
+}

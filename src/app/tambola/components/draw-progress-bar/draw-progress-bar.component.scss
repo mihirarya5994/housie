@@ -1,0 +1,38 @@
+.draw-progress-bar {
+  width: 100%;
+  height: 5px;
+
+  .outer {
+    width: 100%;
+    height: 100%;
+
+    .inner {
+      width: 100%;
+      height: 100%;
+      border-top-right-radius: 100px;
+      border-bottom-right-radius: 100px;
+      overflow: visible;
+      position: relative;
+
+      &.golden {
+        background: #d71920;
+      }
+
+      &.private {
+        background: #d71920;
+      }
+
+      &.draw {
+        width: 0;
+      }
+
+      .img-wrap {
+        position: absolute;
+        right: -16px;
+        top: -14px;
+        width: 32px;
+        height: 32px;
+      }
+    }
+  }
+}

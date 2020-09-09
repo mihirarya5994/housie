@@ -1,0 +1,69 @@
+<!-- <div class="room-component full" *ngIf="loading">
+    <app-loader></app-loader>
+</div> -->
+
+<div class="room-component full">
+  <div class="content">
+    <div class="join-room">
+      <div class="top">
+        <div class="text">Enter code to join</div>
+        <div class="text-bold">A PRIVATE ROOM</div>
+      </div>
+      <div class="middle">
+        <div class="enter-code">
+          <ng-otp-input #ngOtpInput (onInputChange)="onCodeChange($event)" [config]="getConfig()" maxlength="1" disabled></ng-otp-input>
+        </div>
+        <div class=" text ">
+          Ask game leader to share the secret code.
+        </div>
+      </div>
+      <div class="bottom " (click)="joinRoom() ">
+        <div class="left ">LET'S PLAY</div>
+        <div class="right ">
+          <img src="assets/images/arrow.svg " />
+        </div>
+      </div>
+    </div>
+    <div class="separator ">OR</div>
+    <div class="game-leader ">
+      <div class="top ">
+        <div class="text ">If you are</div>
+        <div class="text-bold ">A GAME LEADER</div>
+      </div>
+      <div class="bottom " (click)="navigateToCreateRoom() ">
+        <div class="left ">START A GAME</div>
+        <div class="right ">
+          <img src="assets/images/arrow.svg " />
+        </div>
+      </div>
+    </div>
+    <!-- <button routerLink="/tambola/room/create "></button> -->
+  </div>
+</div>
+
+<div class="room-error-popup ">
+  <div class="bg " (click)="toggleRoomPopup(null) " *ngIf="showRoomPopup "></div>
+  <div class="popup-content " [class.show]="showRoomPopup ">
+    <div class="title ">Oooops!</div>
+    <div class="body ">
+      <div class="error-image ">
+        <img src="assets/images/Ooops.svg " />
+      </div>
+      <div class="error-message " *ngIf="incorrectCode ">
+        <div class="text ">Incorrect Code or No Code Found!</div>
+        <div class="text-bold ">Confirm it from the game leader!</div>
+      </div>
+      <div class="error-message " *ngIf="roomVanished ">
+        <div class="text ">The room does not exist</div>
+        <div class="bold-text">The game leader quit!!</div>
+      </div>
+      <div class="error-message " *ngIf="roomStarted ">
+        <div class="text ">You are late !</div>
+        <div class="text-bold ">Game has already started</div>
+      </div>
+      <div class="okay-btn ">
+        <button type="button " (click)="toggleRoomPopup(null) ">OKAY</button>
+      </div>
+    </div>
+  </div>
+</div>

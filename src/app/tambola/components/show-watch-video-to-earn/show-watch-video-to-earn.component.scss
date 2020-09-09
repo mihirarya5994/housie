@@ -1,0 +1,67 @@
+@import 'mixins';
+
+.show-watch-video-to-earn {
+  .content {
+    position: fixed;
+    background: rgba(0, 0, 0, 0.85);
+    animation: fadein 0.3s ease-in;
+    transform: translateZ(999px);
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    .back {
+      position: absolute;
+      top: 4px;
+      left: 10px;
+      color: #FFFFFF;
+      font-size: 2rem;
+    }
+
+    .text {
+      font-family: MontserratSemiBold;
+      font-size: 1rem;
+      color: #FFFFFF;
+      text-align: center;
+      padding: 0.25rem 0;
+    }
+
+    .video-ad {
+      position: absolute;
+      bottom: 10px;
+      width: 90%;
+      background-image: linear-gradient(to bottom, #00C3FF, #0032D8);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-radius: 5px;
+      padding: 0.5rem 1rem;
+      .left{
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        .video-icon {}
+
+        .text {
+          text-align: left;
+          padding-left: 1rem;
+          line-height: 1.2rem;
+          .text1 {
+            font-family: MontserratExtraBold;
+          }
+  
+          .text2 {
+            font-family: MontserratMedium;
+          }
+        }
+      }
+
+      .video-banner {
+        padding-right: 0.5rem;
+      }
+    }
+  }
+}

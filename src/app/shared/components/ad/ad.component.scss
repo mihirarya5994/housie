@@ -1,0 +1,21 @@
+.ad-component {
+  background: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  // margin: 1rem 0;
+
+  &.billboard {
+    height: 250px;
+  }
+
+  &.banner {
+    width: 100%;
+  }
+
+  ins {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}

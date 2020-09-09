@@ -1,0 +1,10 @@
+<div class="carousel" #carousel [hidden]="!events.length">
+  <div class="slide" *ngFor="let banner of banners">
+    <img src="assets/images/banners/{{banner.img}}" (click)="select(banner)" />
+  </div>
+</div>
+<div class="carousel" [hidden]="events.length">
+  <div class="slide">
+    <img src="assets/images/banners/no-event.png" />
+  </div>
+</div>

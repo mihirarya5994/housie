@@ -1,0 +1,12 @@
+<div class="game-timer">
+  <div class="text">{{ forNextGame ? 'Next Game Starts In' : 'Game Starts In' }}</div>
+  <div class="timer">
+    <div class="unit" *ngIf="timeLeft.days > 0">{{ timeLeft.days | pad }}D</div>
+    <div class="separator" *ngIf="timeLeft.days > 0">:</div>
+    <div class="unit" *ngIf="timeLeft.hours > 0">{{ timeLeft.hours | pad }}H</div>
+    <div class="separator" *ngIf="timeLeft.hours > 0">:</div>
+    <div class="unit">{{ timeLeft.minutes | pad }}M</div>
+    <div class="separator">:</div>
+    <div class="unit">{{ timeLeft.seconds | pad }}S</div>
+  </div>
+</div>
